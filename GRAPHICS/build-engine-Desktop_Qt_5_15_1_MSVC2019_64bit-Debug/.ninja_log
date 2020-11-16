@@ -1,0 +1,6 @@
+# ninja log v5
+4	1231	627241931	engine_autogen/timestamp	41f10d93801cdad
+1232	2778	627241932	CMakeFiles/engine.dir/engine_autogen/mocs_compilation.cpp.obj	3806edeca754909c
+1238	2880	627241932	CMakeFiles/engine.dir/mainwindow.cpp.obj	4f22218f3f0de67d
+1235	2953	627241933	CMakeFiles/engine.dir/main.cpp.obj	b911e3817ddfa515
+2953	3525	627241933	engine.exe	601013ceadf02546
