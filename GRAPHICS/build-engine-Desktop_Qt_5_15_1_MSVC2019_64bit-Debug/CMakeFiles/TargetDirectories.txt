@@ -1,0 +1,4 @@
+C:/Users/dougl/Desktop/Git_Server/no_mans_space/GRAPHICS/build-engine-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/CMakeFiles/engine.dir
+C:/Users/dougl/Desktop/Git_Server/no_mans_space/GRAPHICS/build-engine-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/dougl/Desktop/Git_Server/no_mans_space/GRAPHICS/build-engine-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/dougl/Desktop/Git_Server/no_mans_space/GRAPHICS/build-engine-Desktop_Qt_5_15_1_MSVC2019_64bit-Debug/CMakeFiles/engine_autogen.dir
