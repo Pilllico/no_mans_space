@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NoiseFilter{
 
-    NoiseFilter(int seed) {
+    public NoiseFilter(int seed) {
         this.seed = seed;
         noise = new Noise(seed);
     }
