@@ -22,7 +22,7 @@ public class SolarSystemMaker{
     }
 
     private void makeSun() {
-        float sunSize = noise.evaluate(new Vector3(13214,132132,76683));
+        float sunSize = noise.evaluate(centerCoords);
         SphereMaker.makeSphere(centerCoords, sunSize);
     }
 

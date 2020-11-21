@@ -4,6 +4,7 @@ using UnityEngine;
 
 //[ExecuteInEditMode]
 public class SpaceMaker:MonoBehaviour {
+    public float samplingResolution = 0.5f;
     public float density = 0.1f;
     public float jitterMultiplier = 10;
     public int spaceCellDimmension = 20;
@@ -37,9 +38,9 @@ public class SpaceMaker:MonoBehaviour {
                     //applying jitter
                     pos += jitter * jitterMultiplier;
                     //calculating size from pos
-                    float size = noise.evaluate(pos);
+                    float value = noise.evaluate(pos * samplingResolution);
                     //creating solar system if valid
-                    if (size > 0.94-density && bounds.Contains(pos)) {
+                    if (value <= density && bounds.Contains(pos)) {
                         SolarSystemMaker ssm = new SolarSystemMaker(pos);
                     }
                 }

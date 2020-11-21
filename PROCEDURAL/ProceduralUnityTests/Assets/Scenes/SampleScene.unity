@@ -240,9 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ace14d31fa3984f9780848edf50409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  samplingResolution: 0.4
   density: 0.1
-  jitterMultiplier: 10
-  spaceCellDimmension: 5
+  jitterMultiplier: 0
+  spaceCellDimmension: 20
   currentCenter: {x: 0, y: 0, z: 0}
 --- !u!4 &961550662
 Transform:
