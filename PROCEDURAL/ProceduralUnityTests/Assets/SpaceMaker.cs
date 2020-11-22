@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 //[ExecuteInEditMode]
@@ -8,21 +9,26 @@ public class SpaceMaker:MonoBehaviour {
     public float density = 0.1f;
     public float jitterMultiplier = 10;
     public int spaceCellDimmension = 20;
-    public Vector3 currentCenter;
+    Vector3 currentCenter;
     NoiseFilter noise;
+    List<Vector3> visited;
 
     private void Start() {
         currentCenter = transform.position;
         noise = new NoiseFilter(125321);
         makeCell(currentCenter);
+        visited = new List<Vector3>();
+        visited.Add(currentCenter);
     }
 
     private void Update() {
-        Vector3 center = worldToCell(transform.position);
-        if (center != currentCenter) {
-            Vector3 direction = Vector3.Normalize(center - currentCenter);
-            currentCenter = center;
-            makeCell(currentCenter * spaceCellDimmension);
+        if (worldToCell(transform.position) != currentCenter) {
+            //Vector3 direction = Vector3.Normalize(center - currentCenter);
+            currentCenter = worldToCell(transform.position);
+            if (!visited.Contains(currentCenter)) {
+                makeCell(currentCenter * spaceCellDimmension);
+                visited.Add(currentCenter);
+            }
         }
     }
 

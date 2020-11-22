@@ -8,10 +8,12 @@ public class SolarSystemMaker{
     public static int minPlanets = 0;
     public static float planetToSunRatio = 0.1f;
     public static float spaceScale = 1;
+  
 
     Vector3 centerCoords;
     int seed;
     NoiseFilter noise;
+    float sunRadius;
 
     public SolarSystemMaker(Vector3 coords) {
         centerCoords = coords;
@@ -19,11 +21,20 @@ public class SolarSystemMaker{
         noise = new NoiseFilter(seed);
 
         makeSun();
+        makePlanets();
     }
 
     private void makeSun() {
         float sunSize = noise.evaluate(centerCoords);
+        sunRadius = sunSize / 2;
         SphereMaker.makeSphere(centerCoords, sunSize);
+    }
+
+    private void makePlanets() {
+        int planetAmount = (int) (noise.evaluate(centerCoords*2) * 10.0f);
+        for (int i = 0; i < planetAmount; i++) {
+            PlanetMaker pm = new PlanetMaker(centerCoords, i, sunRadius);
+        }
     }
 
 }

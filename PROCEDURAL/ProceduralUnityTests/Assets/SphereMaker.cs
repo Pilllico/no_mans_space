@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class SphereMaker : MonoBehaviour
 {
-    public static void makeSphere(Vector3 coords, float size) {
+    public static GameObject makeSphere(Vector3 coords, float size) {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.position = coords;
         sphere.transform.localScale = Vector3.one * size;
+        return sphere;
     }
 }
