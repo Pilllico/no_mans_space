@@ -56,8 +56,8 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-add_executable(g_engine
-	g_engine/g_engine.cpp
+add_executable(engine
+	engine/engine.cpp
 	common/shader.cpp
 	common/shader.hpp
 	common/controls.cpp
@@ -73,15 +73,15 @@ add_executable(g_engine
 	common/tangentspace.hpp
 	common/tangentspace.cpp
 	
-	g_engine/NormalMapping.vertexshader
-	g_engine/NormalMapping.fragmentshader
+	engine/NormalMapping.vertexshader
+	engine/NormalMapping.fragmentshader
 )
-target_link_libraries(g_engine
+target_link_libraries(engine
 	${ALL_LIBS}
 )
 # Xcode and Visual working directories
-set_target_properties(g_engine PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/g_engine/")
-create_target_launcher(g_engine WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/g_engine/")
+set_target_properties(engine PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/engine/")
+create_target_launcher(engine WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/engine/")
 
 
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*" )
@@ -90,8 +90,8 @@ SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$" )
 
 if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
 add_custom_command(
-   TARGET g_engine POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/g_engine${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/g_engine/"
+   TARGET engine POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/engine${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_SOURCE_DIR}/engine/"
 )
 
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
