@@ -1,0 +1,9 @@
+**/*.dll
+**/*.exe
+build/*
+**.bak
+**.orig
+*.pyc
+Thumbs.db
+**.mtl
+.DS_Store
