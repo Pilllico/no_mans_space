@@ -62,13 +62,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Noise.cs" />
-    <Compile Include="Assets\NoiseFilter.cs" />
-    <Compile Include="Assets\PlanetBehavior.cs" />
-    <Compile Include="Assets\PlanetMaker.cs" />
-    <Compile Include="Assets\SolarSystemMaker.cs" />
-    <Compile Include="Assets\SpaceMaker.cs" />
-    <Compile Include="Assets\SphereMaker.cs" />
+    <Compile Include="Assets\Animation\PlanetBehavior.cs" />
+    <Compile Include="Assets\Noise\Noise.cs" />
+    <Compile Include="Assets\Noise\NoiseFilter.cs" />
+    <Compile Include="Assets\NoiseSettings.cs" />
+    <Compile Include="Assets\PlanetFace.cs" />
+    <Compile Include="Assets\PlanetSettings.cs" />
+    <Compile Include="Assets\PlanetTestTool.cs" />
+    <Compile Include="Assets\ShapeGenerator.cs" />
+    <Compile Include="Assets\SpaceGene\PlanetMaker.cs" />
+    <Compile Include="Assets\SpaceGene\SolarSystemMaker.cs" />
+    <Compile Include="Assets\SpaceGene\SpaceMaker.cs" />
+    <Compile Include="Assets\SpaceGene\SunMaker.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Az/Desktop/Moteur/no_mans_space/PROCEDURAL/ProceduralUnityTests/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
