@@ -25,7 +25,7 @@ public class PlanetTestTool : MonoBehaviour {
     }
 
     void initialize() {
-        shapeGenerator = new ShapeGenerator(seed, settings, radius);
+        shapeGenerator = new ShapeGenerator(seed, settings);
 
         if(meshFilters == null || meshFilters.Length == 0) meshFilters = new MeshFilter[6];
         planetFaces = new PlanetFace[6];
@@ -43,6 +43,8 @@ public class PlanetTestTool : MonoBehaviour {
 
             planetFaces[i] = new PlanetFace(shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
         }
+
+        transform.localScale = Vector3.one * radius;
     }
 
     void generateMesh() {

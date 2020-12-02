@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ShapeGenerator {
     int seed;
-    float radius;
     PlanetSettings settings;
     NoiseFilter noise;
 
-    public ShapeGenerator(int seed, PlanetSettings settings, float radius) {
+    public ShapeGenerator(int seed, PlanetSettings settings) {
         this.seed = seed;
         this.settings = settings;
-        this.radius = radius;
     }
 
     public Vector3 calculatePointOnPlanet(Vector3 pointOnUnitSphere) {
@@ -24,7 +22,7 @@ public class ShapeGenerator {
             if(altitude > 0 && layer.active) altitude += getAltitudeFromNoiseLayer(layer, pointOnUnitSphere);
         }
 
-        Vector3 pointOnPlanet = pointOnUnitSphere * (radius + altitude);
+        Vector3 pointOnPlanet = pointOnUnitSphere * (1 + altitude);
         return pointOnPlanet;// * radius;
     }
 

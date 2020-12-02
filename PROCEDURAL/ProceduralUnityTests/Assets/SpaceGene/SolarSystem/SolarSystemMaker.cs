@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class SolarSystemMaker{
 
-    public static int maxPlanets = 10;
-    public static int minPlanets = 0;
-    public static float planetToSunRatio = 0.1f;
-    public static float spaceScale = 1;
-  
+    SolarSystemSettings solarSystemSettings;
 
     Vector3 centerCoords;
     int seed;
@@ -16,6 +12,7 @@ public class SolarSystemMaker{
     float sunRadius;
 
     public SolarSystemMaker(Vector3 coords) {
+        solarSystemSettings = GameObject.Find("SpaceMaker").GetComponent<CommonSettings>().solarSystemSettings;
         centerCoords = coords;
         seed = ((int)coords.x) | (((int)coords.y) << 8) | (((int)coords.z) << 16);
         noise = new NoiseFilter(seed);
@@ -25,13 +22,12 @@ public class SolarSystemMaker{
     }
 
     private void makeSun() {
-        float sunSize = noise.evaluate(centerCoords);
-        sunRadius = sunSize / 2;
-        SunMaker.makeSphere(centerCoords, sunSize);
+        sunRadius = noise.evaluate(centerCoords) / 2;
+        SunMaker.makeSphere(centerCoords, sunRadius);
     }
 
     private void makePlanets() {
-        int planetAmount = (int) (noise.evaluate(centerCoords*2) * 10.0f);
+        float planetAmount = solarSystemSettings.minPlanets + (int)((solarSystemSettings.maxPlanets - solarSystemSettings.minPlanets) * noise.evaluate(centerCoords * 2));
         for (int i = 0; i < planetAmount; i++) {
             PlanetMaker pm = new PlanetMaker(centerCoords, i, sunRadius);
         }

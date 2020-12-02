@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class SunMaker : MonoBehaviour
 {
-    public static GameObject makeSphere(Vector3 coords, float size) {
+    public static GameObject makeSphere(Vector3 coords, float radius) {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.name = "Sun";
         sphere.transform.position = coords;
-        sphere.transform.localScale = Vector3.one * size;
+        sphere.transform.localScale = Vector3.one * radius;
         Light light = sphere.AddComponent<Light>();
-        light.range = 3;
+        light.range = 1.15f;
         
         return sphere;
     }
