@@ -13,6 +13,7 @@ public class CommonSettingsEditor : Editor {
         base.OnInspectorGUI();
         drawSettingsEditor(commonSettings.spaceSettings, ref settingsEditor);
         drawSettingsEditor(commonSettings.solarSystemSettings, ref settingsEditor);
+        drawSettingsEditor(commonSettings.sunSettings, ref settingsEditor);
         drawSettingsEditor(commonSettings.planetSettings, ref settingsEditor);
     }
 

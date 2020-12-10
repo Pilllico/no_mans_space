@@ -12,21 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3ceb008bef6db4ebf3f15918ec81ee, type: 3}
   m_Name: DefaultPlanetSettings
   m_EditorClassIdentifier: 
+  minRadius: 0.01
+  radiusMultiplier: 0.02
+  speedMultiplier: 0.5
   baseLayer:
     active: 1
     numLayers: 4
-    flatThreshold: 0.927
+    flatThreshold: 0.853
     strength: 0.108
     baseRoughness: 1.08
     center: {x: 0, y: 0, z: 0}
-    roughness: 2
-    persistance: 0.5
+    roughness: 2.33
+    persistance: 0.484
   noiseLayers:
   - active: 1
     numLayers: 4
     flatThreshold: 0.917
-    strength: 0.164
-    baseRoughness: 4.27
+    strength: 0.162
+    baseRoughness: 4.02
     center: {x: 0, y: 0, z: 0}
-    roughness: 4.08
-    persistance: 0.332
+    roughness: 5.03
+    persistance: 0.324
+  - active: 0
+    numLayers: 6
+    flatThreshold: 0.841
+    strength: 0.054
+    baseRoughness: 8.33
+    center: {x: 0, y: 0, z: 0}
+    roughness: 4.59
+    persistance: 0.324

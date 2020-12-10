@@ -74,9 +74,10 @@
     <Compile Include="Assets\SpaceGene\Planet\ShapeGenerator.cs" />
     <Compile Include="Assets\SpaceGene\SolarSystem\SolarSystemMaker.cs" />
     <Compile Include="Assets\SpaceGene\SolarSystem\SolarSystemSettings.cs" />
-    <Compile Include="Assets\SpaceGene\SpaceMaker.cs" />
-    <Compile Include="Assets\SpaceGene\SpaceSettings.cs" />
+    <Compile Include="Assets\SpaceGene\Space\SpaceMaker.cs" />
+    <Compile Include="Assets\SpaceGene\Space\SpaceSettings.cs" />
     <Compile Include="Assets\SpaceGene\Sun\SunMaker.cs" />
+    <Compile Include="Assets\SpaceGene\Sun\SunSettings.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Az/Desktop/Moteur/no_mans_space/PROCEDURAL/ProceduralUnityTests/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

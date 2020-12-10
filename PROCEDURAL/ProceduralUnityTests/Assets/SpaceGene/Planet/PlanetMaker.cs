@@ -3,46 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlanetMaker {
+    //MESH SETTINGS
     public int resolution = 50;
     ShapeGenerator shapeGenerator;
     MeshFilter[] meshFilters;
     PlanetFace[] planetFaces;
+    //PLANET
+    PlanetSettings planetSettings;
     int seed;
     NoiseFilter noise;
     Vector3 solarSysCenter;
-    PlanetSettings settings;
     float radius;
-    float orbitRadius;
+    float orbit;
     float speed;
 
-    public PlanetMaker(Vector3 solarSysCenter, int index, float sunRadius) {
-
-        this.settings = GameObject.Find("SpaceMaker").GetComponent<CommonSettings>().planetSettings;
-        this.solarSysCenter = solarSysCenter;
-        Vector3 seedPosition = solarSysCenter * ((float)index * 10.0f);
+    public PlanetMaker(Vector3 solarSysCenter, float orbit) {
+        //INIT
+        this.planetSettings = GameObject.Find("SpaceMaker").GetComponent<CommonSettings>().planetSettings;
+        Vector3 seedPosition = solarSysCenter * orbit * CommonSettings.smallNoiseScale;
         seed = ((int)(seedPosition.x)) | (((int)(seedPosition.y)) << 8) | (((int)(seedPosition.z)) << 16);
-        Debug.Log(seed);
+        //Debug.Log(seed);
         noise = new NoiseFilter(seed);
-        radius = noise.evaluate(solarSysCenter* 165.0f * (float)index) / 20.0f;
-        orbitRadius = (noise.evaluate(solarSysCenter * 17.0f * (float)index) + index) / 10.0f + sunRadius * 2.0f;
-        speed = noise.evaluate(solarSysCenter * (float)(index)) / 5.0f;
-
+        Vector3 position = solarSysCenter + Vector3.left * orbit;
+        this.radius = planetSettings.minRadius + noise.newValueFromCoords(position) * planetSettings.radiusMultiplier;
+        this.orbit = orbit;
+        this.speed = noise.newValueFromCoords(position) * planetSettings.speedMultiplier;
+        //MAKING
         GameObject planet = new GameObject("Planet");
         
         initialize(planet);
         generateMesh();
 
-        planet.transform.position = solarSysCenter + Vector3.left * orbitRadius;
+        planet.transform.position = solarSysCenter + Vector3.left * this.orbit;
         planet.transform.localScale = Vector3.one * radius;
 
         planet.AddComponent(typeof(PlanetBehavior));
         planet.GetComponent<PlanetBehavior>().center = solarSysCenter;
-        planet.GetComponent<PlanetBehavior>().radius = orbitRadius;
+        planet.GetComponent<PlanetBehavior>().radius = this.orbit;
         planet.GetComponent<PlanetBehavior>().speed = speed;
     }
 
     void initialize(GameObject planet) {
-        shapeGenerator = new ShapeGenerator(seed, settings);
+        shapeGenerator = new ShapeGenerator(seed, planetSettings);
 
         if (meshFilters == null || meshFilters.Length == 0) meshFilters = new MeshFilter[6];
         planetFaces = new PlanetFace[6];

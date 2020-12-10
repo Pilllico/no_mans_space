@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a404cf07d9bdaa48ae8a96ca914d980, type: 3}
   m_Name: DefaultSolarSystemSettings
   m_EditorClassIdentifier: 
-  maxPlanets: 5
+  maxPlanets: 3
   minPlanets: 0
-  planetToSunRatio: 0.1
-  spaceScale: 1
+  minSpacing: 0.1
+  spacingMultiplier: 0.814
+  sunMargin: 0

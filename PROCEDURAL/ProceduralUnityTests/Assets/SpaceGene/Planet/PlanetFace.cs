@@ -33,7 +33,7 @@ public class PlanetFace {
                 Vector3 pointOnUnitCube = localUp + (percent.x - 0.5f) * 2 * axisA + (percent.y - 0.5f) * 2 * axisB;
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
                 Vector3 pointOnPlanet;
-                if (resolution < 30) pointOnPlanet = shapeGenerator.calculatePointOnPlanet(pointOnUnitSphere);
+                if (resolution > 30) pointOnPlanet = shapeGenerator.calculatePointOnPlanet(pointOnUnitSphere);
                 else pointOnPlanet = pointOnUnitSphere;
                 vertices[i] = pointOnPlanet;
 
