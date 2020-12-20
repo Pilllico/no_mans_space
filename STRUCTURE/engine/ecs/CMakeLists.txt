@@ -35,14 +35,17 @@ if(ANDROID)
     mainwindow.ui
     entity.cpp
     entity.h
-    observer.cpp
-    observer.h
-    subject.cpp
-    subject.h
-    component.cpp
+    system.cpp
+    system.h
     component.h
     entitymanager.cpp
     entitymanager.h
+    transform.cpp
+    transform.h
+    componentmanager.cpp
+    componentmanager.h
+    transformmanager.cpp
+    transformmanager.h
   )
 else()
   add_executable(ecs
@@ -52,14 +55,17 @@ else()
     mainwindow.ui
     entity.cpp
     entity.h
-    observer.h
-    observer.cpp
-    subject.cpp
-    subject.h
-    component.cpp
+    system.cpp
+    system.h
     component.h
     entitymanager.cpp
     entitymanager.h
+    transform.cpp
+    transform.h
+    componentmanager.cpp
+    componentmanager.h
+    transformmanager.cpp
+    transformmanager.h
   )
 endif()
 
