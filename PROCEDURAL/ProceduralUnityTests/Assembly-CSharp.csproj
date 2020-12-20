@@ -62,13 +62,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Noise.cs" />
-    <Compile Include="Assets\NoiseFilter.cs" />
-    <Compile Include="Assets\PlanetBehavior.cs" />
-    <Compile Include="Assets\PlanetMaker.cs" />
-    <Compile Include="Assets\SolarSystemMaker.cs" />
-    <Compile Include="Assets\SpaceMaker.cs" />
-    <Compile Include="Assets\SphereMaker.cs" />
+    <Compile Include="Assets\Animation\PlanetBehavior.cs" />
+    <Compile Include="Assets\Noise\Noise.cs" />
+    <Compile Include="Assets\Noise\NoiseFilter.cs" />
+    <Compile Include="Assets\PlanetTestTool.cs" />
+    <Compile Include="Assets\SpaceGene\CommonSettings.cs" />
+    <Compile Include="Assets\SpaceGene\Planet\NoiseSettings.cs" />
+    <Compile Include="Assets\SpaceGene\Planet\PlanetFace.cs" />
+    <Compile Include="Assets\SpaceGene\Planet\PlanetMaker.cs" />
+    <Compile Include="Assets\SpaceGene\Planet\PlanetSettings.cs" />
+    <Compile Include="Assets\SpaceGene\Planet\ShapeGenerator.cs" />
+    <Compile Include="Assets\SpaceGene\SolarSystem\SolarSystemMaker.cs" />
+    <Compile Include="Assets\SpaceGene\SolarSystem\SolarSystemSettings.cs" />
+    <Compile Include="Assets\SpaceGene\Space\SpaceMaker.cs" />
+    <Compile Include="Assets\SpaceGene\Space\SpaceSettings.cs" />
+    <Compile Include="Assets\SpaceGene\Sun\SunMaker.cs" />
+    <Compile Include="Assets\SpaceGene\Sun\SunSettings.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Az/Desktop/Moteur/no_mans_space/PROCEDURAL/ProceduralUnityTests/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

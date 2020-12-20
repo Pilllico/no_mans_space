@@ -269,3 +269,6 @@ C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\ProceduralUnityTests\obj\Deb
 C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\ProceduralUnityTests\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\ProceduralUnityTests\obj\Debug\Assembly-CSharp.dll
 C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\ProceduralUnityTests\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\ProceduralUnityTests\Temp\bin\Debug\Boo.Lang.dll
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\ProceduralUnityTests\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\ProceduralUnityTests\Temp\bin\Debug\UnityEditor.UI.xml
