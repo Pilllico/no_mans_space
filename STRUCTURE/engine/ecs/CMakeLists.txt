@@ -47,6 +47,8 @@ if(ANDROID)
     componentmanager.h
     transformmanager.cpp
     transformmanager.h
+    displaysystem.h
+    displaysystem.cpp
   )
 else()
   add_executable(ecs
@@ -68,6 +70,8 @@ else()
     componentmanager.h
     transformmanager.cpp
     transformmanager.h
+    displaysystem.h
+    displaysystem.cpp
   )
 endif()
 

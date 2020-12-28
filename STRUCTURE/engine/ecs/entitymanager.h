@@ -19,19 +19,16 @@ public:
     static EntityManager & getInstance();
     Entity createEntity();
 
-
     void addComponentToEntity(Component* component, Entity e);
-
     void addComponentsToEntity(std::vector<Component*> components, Entity e);
 
+    bitmap getBitMapFromEntity(Entity e);
 
-    std::bitset<16> getBitMapFromEntity(Entity e);
-
-    //
     std::vector<ComponentManager*> getComponentManagersForSystem(bitmap bitset);
 
     bool deleteEntity(Entity e);
     bool deleteComponentsFromEntity(bitmap bitset, Entity e);
+    void registerSystem(System * system);
     ~EntityManager();
 private:
     EntityManager();

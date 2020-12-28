@@ -12,7 +12,7 @@ public:
     System();
     void update(bitmap signature, Entity e);
     virtual ~System();
-private:
+protected:
     bitmap systemSignature;
     std::vector<Entity> entityList;
     EntityManager& entityManager = EntityManager::getInstance();

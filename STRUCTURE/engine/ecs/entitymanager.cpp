@@ -1,6 +1,8 @@
 #include "entitymanager.h"
 #include <iostream>
 
+#include "system.h"
+
 EntityManager & EntityManager::getInstance() {
     /*if (EntityManager::instance == nullptr) {
         EntityManager::instance = new EntityManager();
@@ -13,7 +15,7 @@ EntityManager & EntityManager::getInstance() {
 
 EntityManager::EntityManager()
 {
-
+    componentManagers.push_back(new TransformManager());
 }
 
 EntityManager::~EntityManager()
@@ -47,7 +49,9 @@ void EntityManager::addComponentToEntity(Component* component, Entity e) {
         }
     }
 
-   componentManagers[pos]->addComponent(e, component);
+    componentManagers[pos]->addComponent(e, component);
+
+    notifyAll(signature, e);
 }
 
 void EntityManager::addComponentsToEntity(std::vector<Component*> components, Entity e) {
@@ -127,8 +131,13 @@ bool EntityManager::deleteComponentsFromEntity(bitmap signature, Entity e) {
         return false;
 }
 
+void EntityManager::registerSystem(System * system)
+{
+    systemList.insert(system);
+}
+
 void EntityManager::notifyAll(bitmap signature, Entity e)
 {
-    for (System* s : systemList) {}
-        //s->update(bitmap signature, Entity e);
+    for (System* s : systemList)
+        s->update(signature, e);
 }

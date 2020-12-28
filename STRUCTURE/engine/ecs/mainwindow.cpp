@@ -1,16 +1,29 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "entitymanager.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QOpenGLWidget(parent)
 {
-    ui->setupUi(this);
+    timer.start(12, this);
+    Entity e = EntityManager::getInstance().createEntity();
+    Transform transform = Transform();
+    EntityManager::getInstance().addComponentToEntity(&transform, e);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+
 }
 
+void MainWindow::timerEvent(QTimerEvent *e)
+{
+    displaySystem.execute();
+    update();
+}
+
+void MainWindow::paintGL()
+{
+
+}
