@@ -1,7 +1,6 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "entity.h"
 #include <vector>
 #include "entitymanager.h"
 
@@ -11,11 +10,12 @@ class System
 {
 public:
     System();
-    virtual void update(/*TO DO : argument*/) = 0;
+    void update(bitmap signature, Entity e);
     virtual ~System();
 private:
+    bitmap systemSignature;
     std::vector<Entity> entityList;
-    EntityManager* entityManager = EntityManager::getInstance();
+    EntityManager& entityManager = EntityManager::getInstance();
 };
 
 #endif // SYSTEM_H

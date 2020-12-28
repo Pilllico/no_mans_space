@@ -4,3 +4,8 @@ ComponentManager::ComponentManager()
 {
 
 }
+
+ComponentManager::~ComponentManager()
+{
+
+}

@@ -11,9 +11,10 @@ class TransformManager : public ComponentManager
 public:
     TransformManager();
     virtual void addComponent(Entity e, Component* component);
+    virtual void deleteComponent(Entity e);
 private:
     std::vector<Transform> data;
-    std::unordered_map<Entity, unsigned short> indices;
+    std::unordered_map<Entity, unsigned short, EntityHasher> indices;
 };
 
 #endif // TRANSFORMMANAGER_H

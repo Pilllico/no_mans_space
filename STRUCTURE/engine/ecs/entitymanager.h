@@ -2,11 +2,9 @@
 #define ENTITYMANAGER_H
 
 #include <unordered_map>
-#include <bitset>
 #include <set>
 #include <utility>
 
-#include "subject.h"
 #include "entity.h"
 #include "component.h"
 #include "transform.h"
@@ -18,7 +16,7 @@ class System;
 class EntityManager
 {
 public:
-    static EntityManager * getInstance();
+    static EntityManager & getInstance();
     Entity createEntity();
 
 
@@ -28,21 +26,22 @@ public:
 
 
     std::bitset<16> getBitMapFromEntity(Entity e);
-    std::vector<Component*> getComponentsFromEntity(std::bitset<16> bitset, Entity e);
+
+    //
+    std::vector<ComponentManager*> getComponentManagersForSystem(bitmap bitset);
+
     bool deleteEntity(Entity e);
-    bool deleteComponentsFromEntity(std::bitset<16> bitset, Entity e);
+    bool deleteComponentsFromEntity(bitmap bitset, Entity e);
     ~EntityManager();
 private:
     EntityManager();
-    std::unordered_map<Entity, std::bitset<16>> entitiesList;
+    std::unordered_map<Entity, bitmap, EntityHasher> entitiesList;
     std::vector<ComponentManager*> componentManagers;
 
-    std::vector<Transform> transformList;
-
     std::set<System*> systemList;
-    static EntityManager* instance;
+    //static EntityManager* instance;
 
-    void notifyAll();
+    void notifyAll(bitmap signature, Entity e);
 };
 
 #endif // ENTITYMANAGER_H

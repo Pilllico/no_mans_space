@@ -38,6 +38,7 @@ if(ANDROID)
     system.cpp
     system.h
     component.h
+    component.cpp
     entitymanager.cpp
     entitymanager.h
     transform.cpp
@@ -58,6 +59,7 @@ else()
     system.cpp
     system.h
     component.h
+    component.cpp
     entitymanager.cpp
     entitymanager.h
     transform.cpp

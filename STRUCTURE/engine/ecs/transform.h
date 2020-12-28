@@ -8,7 +8,14 @@ class Transform : public Component
 {
 public:
     Transform();
-    std::bitset<16> getBitset();
+    Transform(QVector3D pos);
+    Transform(QVector3D pos, QVector3D rot);
+    Transform(QVector3D pos, QVector3D rot, QVector3D scale);
+    const QVector3D& getPosition() const;
+    const QVector3D& getRotation() const;
+    const QVector3D& getScale() const;
+    virtual bitmap getBitMap();
+    virtual ~Transform();
 private:
     QVector3D position;
     QVector3D rotation;
