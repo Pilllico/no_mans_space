@@ -14,10 +14,26 @@ void TransformManager::deleteComponent(Entity e) {
 
     int indice = indices.at(e);
 
-    for (auto p : indices) {
+    for (auto& p : indices) {
         if (p.second > indice)
             p.second--;
     }
 
     data.erase(data.begin() + indice);
+}
+
+const Transform& TransformManager::getTransform(Entity e)
+{
+    return data.at(indices.at(e));
+}
+
+std::vector<Transform> TransformManager::getTransforms(std::vector<Entity> entitiesList)
+{
+    std::vector<Transform> out;
+
+    for (Entity& e : entitiesList)
+    {
+        out.push_back(data.at(indices.at(e)));
+    }
+    return out;
 }

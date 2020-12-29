@@ -12,9 +12,16 @@ void System::update(bitmap signature, Entity e)
 
     std::cout << "Notified" << std::endl;
 
-    if ((signature&systemSignature) != systemSignature)
-        entityList.erase(find(entityList.begin(), entityList.end(), e));
+    if (find(entityList.begin(), entityList.end(), e) != entityList.end()) {
+        if ((signature&systemSignature) != systemSignature)
+            entityList.erase(find(entityList.begin(), entityList.end(), e));
+    }
+    else {
 
+    if ((signature&systemSignature) == systemSignature)
+        entityList.push_back(e);
+
+    }
 }
 
 System::~System()

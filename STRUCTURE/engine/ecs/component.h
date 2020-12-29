@@ -5,11 +5,9 @@
 
 struct Component
 {
-public:
+    Component();
     virtual bitmap getBitMap() = 0;
     virtual ~Component();
-protected:
-    bitmap id;
 };
 
 #endif // COMPONENT_H

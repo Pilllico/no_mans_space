@@ -16,7 +16,9 @@ public:
     const QVector3D& getScale() const;
     virtual bitmap getBitMap();
     virtual ~Transform();
-private:
+
+    static bitmap componentSignature;
+private:    
     QVector3D position;
     QVector3D rotation;
     QVector3D scale;

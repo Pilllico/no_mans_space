@@ -8,7 +8,7 @@ class displaySystem : public System
 {
 public:
     displaySystem();
-    void execute();
+    void virtual execute();
 private:
     std::clock_t time;
 };

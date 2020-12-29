@@ -33,6 +33,7 @@ if(ANDROID)
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    signatures.cpp
     entity.cpp
     entity.h
     system.cpp
@@ -56,6 +57,7 @@ else()
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
+    signatures.cpp
     entity.cpp
     entity.h
     system.cpp

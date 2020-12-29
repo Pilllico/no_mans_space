@@ -4,7 +4,7 @@
 #include <vector>
 #include <bitset>
 
-using bitmap = std::bitset<16>;
+using bitmap = std::bitset<8>;
 
 class Entity
 {

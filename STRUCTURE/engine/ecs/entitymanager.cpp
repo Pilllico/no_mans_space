@@ -4,23 +4,22 @@
 #include "system.h"
 
 EntityManager & EntityManager::getInstance() {
-    /*if (EntityManager::instance == nullptr) {
-        EntityManager::instance = new EntityManager();
-    }
-
-    return EntityManager::instance;*/
     static EntityManager instance;
     return instance;
 }
 
 EntityManager::EntityManager()
 {
-    componentManagers.push_back(new TransformManager());
+    componentManagers.insert(std::make_pair(Transform::componentSignature, new TransformManager()));
 }
 
 EntityManager::~EntityManager()
 {
-
+    for (auto it = componentManagers.begin(); it != componentManagers.end(); it++)
+    {
+        delete it->second;
+    }
+    std::cout << "~EntityManager()" << std::endl;
 }
 
 Entity EntityManager::createEntity() {
@@ -40,16 +39,7 @@ void EntityManager::addComponentToEntity(Component* component, Entity e) {
     // Ajoute à l'entité
     entitiesList.at(e) = entitiesList.at(e) |= signature;
 
-    // Cherche la position du bit de ce type de composant
-    unsigned short pos = 0;
-    for (unsigned short i = 0; i < signature.size(); ++i) {
-        if (signature.test(i)) {
-            pos = i;
-            break;
-        }
-    }
-
-    componentManagers[pos]->addComponent(e, component);
+    componentManagers.at(signature)->addComponent(e, component);
 
     notifyAll(signature, e);
 }
@@ -59,10 +49,9 @@ void EntityManager::addComponentsToEntity(std::vector<Component*> components, En
     for (Component* c : components) {
         addComponentToEntity(c, e);
     }
-
 }
 
-std::bitset<16> EntityManager::getBitMapFromEntity(Entity e) {
+bitmap EntityManager::getBitMapFromEntity(Entity e) {
     return entitiesList[e];
 }
 
@@ -70,18 +59,17 @@ std::vector<ComponentManager*> EntityManager::getComponentManagersForSystem(bitm
 
     std::vector<ComponentManager*> out;
 
-    for (int i = 0; signature.size(); ++i) {
+    for (size_t i = 0; i < signature.size(); ++i) {
         if (signature.test(i)) {
 
             bitmap mask;
             mask.set(i);
 
-            for (ComponentManager* cm : componentManagers)
+            for (auto it = componentManagers.begin(); it != componentManagers.end(); it++)
             {
-                if (cm->id == mask)
-                    out.push_back(cm);
+                if (it->first == mask)
+                    out.push_back(it->second);
             }
-
         }
     }
     return out;
@@ -114,11 +102,10 @@ bool EntityManager::deleteComponentsFromEntity(bitmap signature, Entity e) {
                 bitmap mask;
                 mask.set(i);
 
-                for (ComponentManager* cm : componentManagers)
+                for (auto it = componentManagers.begin(); it != componentManagers.end(); it++)
                 {
-                    if (cm->id == mask) {
-                        cm->deleteComponent(e);
-                    }
+                    if (it->first == mask)
+                        it->second->deleteComponent(e);
                 }
             }
         }

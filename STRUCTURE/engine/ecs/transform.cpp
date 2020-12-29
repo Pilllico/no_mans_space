@@ -2,7 +2,6 @@
 
 Transform::Transform()
 {
-    id = std::bitset<16>(0x1);
     this->position = QVector3D(0.0f, 0.0f, 0.0f);
     this->rotation = QVector3D(0.0f, 0.0f, 0.0f);
     this->scale = QVector3D(1.0f, 1.0f, 1.0f);
@@ -42,7 +41,7 @@ const QVector3D& Transform::getScale() const
 }
 
 bitmap Transform::getBitMap() {
-    return id;
+    return componentSignature;
 }
 
 Transform::~Transform()

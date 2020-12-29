@@ -33,10 +33,9 @@ public:
 private:
     EntityManager();
     std::unordered_map<Entity, bitmap, EntityHasher> entitiesList;
-    std::vector<ComponentManager*> componentManagers;
+    std::unordered_map<bitmap, ComponentManager*> componentManagers;
 
     std::set<System*> systemList;
-    //static EntityManager* instance;
 
     void notifyAll(bitmap signature, Entity e);
 };

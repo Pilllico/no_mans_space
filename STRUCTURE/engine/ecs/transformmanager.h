@@ -12,6 +12,9 @@ public:
     TransformManager();
     virtual void addComponent(Entity e, Component* component);
     virtual void deleteComponent(Entity e);
+    const Transform& getTransform(Entity e);
+    std::vector<Transform> getTransforms(std::vector<Entity> entitiesList);
+    //static bitmap managerSignature;
 private:
     std::vector<Transform> data;
     std::unordered_map<Entity, unsigned short, EntityHasher> indices;
