@@ -1,7 +1,5 @@
 #include "displaysystem.h"
 
-#include <iostream>
-
 displaySystem::displaySystem()
 {
     time = std::clock();
@@ -14,7 +12,7 @@ std::ostream& operator<< (std::ostream& os, const QVector3D& v)
     return os;
 }
 
-void displaySystem::execute()
+bool displaySystem::execute()
 {
     std::clock_t t1 = clock();
     if ((t1 - time) / (double) CLOCKS_PER_SEC > 2.0) {
@@ -35,5 +33,7 @@ void displaySystem::execute()
 
             std::cout << transform.getPosition() << std::endl;
         }
+        return true;
     }
+    return false;
 }

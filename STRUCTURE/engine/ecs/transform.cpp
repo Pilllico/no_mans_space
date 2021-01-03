@@ -40,7 +40,7 @@ const QVector3D& Transform::getScale() const
     return this->scale;
 }
 
-bitmap Transform::getBitMap() {
+bitmap Transform::getBitMap() const {
     return componentSignature;
 }
 

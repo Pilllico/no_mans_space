@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "entitymanager.h"
+#include <iostream>
 
 class EntityManager;
 
@@ -11,7 +12,7 @@ class System
 public:
     System();
     void update(bitmap signature, Entity e);
-    void virtual execute() = 0;
+    bool virtual execute() = 0;
     virtual ~System();
 protected:
     bitmap systemSignature;

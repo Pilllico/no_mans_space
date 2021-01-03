@@ -11,8 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
     Entity e2 = EntityManager::getInstance().createEntity();
     Transform transform1 = Transform();
     Transform transform2 = Transform(QVector3D(10.0f, 0.0f, -5.0f));
+    Physics p1 = Physics();
     EntityManager::getInstance().addComponentToEntity(&transform1, e1);
     EntityManager::getInstance().addComponentToEntity(&transform2, e2);
+    EntityManager::getInstance().addComponentToEntity(&p1, e1);
 }
 
 MainWindow::~MainWindow()
@@ -22,8 +24,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::timerEvent(QTimerEvent *e)
 {
-    displaySystem.execute();
-    update();
+    if (displaySystem.execute())
+        update();
+    physicsSystem.execute();
 }
 
 void MainWindow::paintGL()

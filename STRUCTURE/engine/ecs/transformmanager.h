@@ -2,7 +2,7 @@
 #define TRANSFORMMANAGER_H
 
 #include <unordered_map>
-#include <transform.h>
+#include "transform.h"
 #include "entity.h"
 #include "componentmanager.h"
 
@@ -14,10 +14,9 @@ public:
     virtual void deleteComponent(Entity e);
     const Transform& getTransform(Entity e);
     std::vector<Transform> getTransforms(std::vector<Entity> entitiesList);
-    //static bitmap managerSignature;
+    std::vector<Transform>& getAllTransforms();
 private:
     std::vector<Transform> data;
-    std::unordered_map<Entity, unsigned short, EntityHasher> indices;
 };
 
 #endif // TRANSFORMMANAGER_H

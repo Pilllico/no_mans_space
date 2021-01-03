@@ -11,6 +11,7 @@ EntityManager & EntityManager::getInstance() {
 EntityManager::EntityManager()
 {
     componentManagers.insert(std::make_pair(Transform::componentSignature, new TransformManager()));
+    componentManagers.insert(std::make_pair(Physics::componentSignature, new PhysicsManager()));
 }
 
 EntityManager::~EntityManager()
@@ -36,12 +37,17 @@ void EntityManager::addComponentToEntity(Component* component, Entity e) {
     // Récupère le bitmap du composant
     bitmap signature = component->getBitMap();
 
+    //std::cout << "Bitmap du composant a ajouter " << signature << std::endl;
+    //std::cout << "Avant : " << entitiesList.at(e) << std::endl;
+
     // Ajoute à l'entité
     entitiesList.at(e) = entitiesList.at(e) |= signature;
 
+    //std::cout << "Apres : " << entitiesList.at(e) << std::endl;
+
     componentManagers.at(signature)->addComponent(e, component);
 
-    notifyAll(signature, e);
+    notifyAll(entitiesList.at(e), e);
 }
 
 void EntityManager::addComponentsToEntity(std::vector<Component*> components, Entity e) {

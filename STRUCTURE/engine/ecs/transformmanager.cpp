@@ -37,3 +37,8 @@ std::vector<Transform> TransformManager::getTransforms(std::vector<Entity> entit
     }
     return out;
 }
+
+std::vector<Transform>& TransformManager::getAllTransforms()
+{
+    return data;
+}

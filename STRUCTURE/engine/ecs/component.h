@@ -6,7 +6,7 @@
 struct Component
 {
     Component();
-    virtual bitmap getBitMap() = 0;
+    virtual bitmap getBitMap() const = 0;
     virtual ~Component();
 };
 

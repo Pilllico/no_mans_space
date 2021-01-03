@@ -6,6 +6,7 @@
 #include <QBasicTimer>
 
 #include "displaysystem.h"
+#include "physicssystem.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +23,7 @@ public:
     void paintGL() override;
 private:
     displaySystem displaySystem;
+    physicsSystem physicsSystem;
     QBasicTimer timer;
 };
 #endif // MAINWINDOW_H

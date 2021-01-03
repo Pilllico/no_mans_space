@@ -7,9 +7,12 @@
 
 #include "entity.h"
 #include "component.h"
+#include "componentmanager.h"
+
 #include "transform.h"
 #include "transformmanager.h"
-#include "componentmanager.h"
+#include "physics.h"
+#include "physicsmanager.h"
 
 class System;
 

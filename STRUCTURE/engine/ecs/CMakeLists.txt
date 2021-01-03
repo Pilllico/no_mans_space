@@ -64,8 +64,11 @@ add_executable(ecs
     displaysystem.cpp
     physicssystem.h
     physicssystem.cpp
+    physics.cpp
+    physics.h
+    physicsmanager.cpp
     bullet/btBulletDynamicsCommon.h
     bullet/btBulletCollisionCommon.h
 )
 
-target_link_libraries(ecs PRIVATE Qt${QT_VERSION_MAJOR}::Widgets LinearMath BulletCollision BulletDynamics)
+target_link_libraries(ecs PRIVATE Qt${QT_VERSION_MAJOR}::Widgets LinearMath_Debug BulletCollision_Debug BulletDynamics_Debug)
