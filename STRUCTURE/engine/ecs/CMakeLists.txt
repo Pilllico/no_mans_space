@@ -27,58 +27,45 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
-if(ANDROID)
-  add_library(ecs SHARED
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    signatures.cpp
-    entity.cpp
-    entity.h
-    system.cpp
-    system.h
-    component.h
-    component.cpp
-    entitymanager.cpp
-    entitymanager.h
-    transform.cpp
-    transform.h
-    componentmanager.cpp
-    componentmanager.h
-    transformmanager.cpp
-    transformmanager.h
-    displaysystem.h
-    displaysystem.cpp
-    physicssystem.h
-    physicssystem.cpp
-  )
-else()
-  add_executable(ecs
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    signatures.cpp
-    entity.cpp
-    entity.h
-    system.cpp
-    system.h
-    component.h
-    component.cpp
-    entitymanager.cpp
-    entitymanager.h
-    transform.cpp
-    transform.h
-    componentmanager.cpp
-    componentmanager.h
-    transformmanager.cpp
-    transformmanager.h
-    displaysystem.h
-    displaysystem.cpp
-    physicssystem.h
-    physicssystem.cpp
-  )
-endif()
+INCLUDE_DIRECTORIES(bullet/LinearMath)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/BroadphaseCollision)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/CollisionShapes)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/Gimpact)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/NarrowPhaseCollision)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/Character)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/ConstraintSolver)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/Dynamics)
+INCLUDE_DIRECTORIES(bullet/BulletCollision/Vehicle)
+LINK_DIRECTORIES(lib/Release)
+LINK_DIRECTORIES(lib/Debug)
 
-target_link_libraries(ecs PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+add_executable(ecs
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+    signatures.cpp
+    entity.cpp
+    entity.h
+    system.cpp
+    system.h
+    component.h
+    component.cpp
+    entitymanager.cpp
+    entitymanager.h
+    transform.cpp
+    transform.h
+    componentmanager.cpp
+    componentmanager.h
+    transformmanager.cpp
+    transformmanager.h
+    displaysystem.h
+    displaysystem.cpp
+    physicssystem.h
+    physicssystem.cpp
+    bullet/btBulletDynamicsCommon.h
+    bullet/btBulletCollisionCommon.h
+)
+
+target_link_libraries(ecs PRIVATE Qt${QT_VERSION_MAJOR}::Widgets LinearMath BulletCollision BulletDynamics)
