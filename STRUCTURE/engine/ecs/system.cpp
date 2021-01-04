@@ -6,9 +6,10 @@ System::System()
     EntityManager::getInstance().registerSystem(this);
 }
 
-void System::update(bitmap signature, Entity e)
+void System::update(Entity e)
 {
     // Entity e has new signature
+    bitmap signature = EntityManager::getInstance().getBitMapFromEntity(e);
 
     std::cout << "Notified" << std::endl;
     //std::cout << "System Signature : " << systemSignature << std::endl;

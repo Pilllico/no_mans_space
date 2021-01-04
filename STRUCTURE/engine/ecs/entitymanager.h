@@ -40,7 +40,7 @@ private:
 
     std::set<System*> systemList;
 
-    void notifyAll(bitmap signature, Entity e);
+    void notifyAll(Entity e);
 };
 
 #endif // ENTITYMANAGER_H

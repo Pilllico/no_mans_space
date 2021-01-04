@@ -47,7 +47,7 @@ void EntityManager::addComponentToEntity(Component* component, Entity e) {
 
     componentManagers.at(signature)->addComponent(e, component);
 
-    notifyAll(entitiesList.at(e), e);
+    notifyAll(e);
 }
 
 void EntityManager::addComponentsToEntity(std::vector<Component*> components, Entity e) {
@@ -116,7 +116,7 @@ bool EntityManager::deleteComponentsFromEntity(bitmap signature, Entity e) {
             }
         }
 
-        notifyAll(signature, e);
+        notifyAll(e);
 
         return true;
     }
@@ -129,8 +129,8 @@ void EntityManager::registerSystem(System * system)
     systemList.insert(system);
 }
 
-void EntityManager::notifyAll(bitmap signature, Entity e)
+void EntityManager::notifyAll(Entity e)
 {
     for (System* s : systemList)
-        s->update(signature, e);
+        s->update(e);
 }

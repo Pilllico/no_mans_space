@@ -11,7 +11,7 @@ class System
 {
 public:
     System();
-    void update(bitmap signature, Entity e);
+    virtual void update(Entity e);
     bool virtual execute() = 0;
     virtual ~System();
 protected:

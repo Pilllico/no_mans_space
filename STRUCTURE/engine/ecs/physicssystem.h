@@ -10,6 +10,7 @@ class physicsSystem : public System
 public:
     physicsSystem();
     bool virtual execute();
+    virtual void update(Entity e);
     ~physicsSystem();
 private:
     btDefaultCollisionConfiguration * collisionConfiguration;
