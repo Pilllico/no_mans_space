@@ -15,30 +15,56 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
 # They need to be set before the find_package(Qt5 ...) call.
 
-#if(ANDROID)
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-#    if (ANDROID_ABI STREQUAL "armeabi-v7a")
-#        set(ANDROID_EXTRA_LIBS
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
-#    endif()
-#endif()
-
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
-INCLUDE_DIRECTORIES(bullet/LinearMath)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/BroadphaseCollision)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/CollisionShapes)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/Gimpact)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/NarrowPhaseCollision)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/Character)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/ConstraintSolver)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/Dynamics)
-INCLUDE_DIRECTORIES(bullet/BulletCollision/Vehicle)
-LINK_DIRECTORIES(lib/Release)
-LINK_DIRECTORIES(lib/Debug)
+INCLUDE_DIRECTORIES(bullet)
 
+file(GLOB SOURCES_LINEAR "bullet/LinearMath/*.cpp")
+file(GLOB HEADERS_LINEAR "bullet/LinearMath/*.h")
+file(GLOB SOURCES_LINEAR2 "bullet/LinearMath/TaskScheduler/*.cpp")
+file(GLOB HEADERS_LINEAR2 "bullet/LinearMath/TaskScheduler/*.h")
+add_library(LinearMath ${SOURCES_LINEAR} ${HEADERS_LINEAR} ${SOURCES_LINEAR2} ${HEADERS_LINEAR2})
+
+file(GLOB SOURCES_COLLISION_BROADPHASE "bullet/BulletCollision/BroadphaseCollision/*.cpp")
+file(GLOB HEADERS_COLLISION_BROADPHASE "bullet/BulletCollision/BroadphaseCollision/*.h")
+file(GLOB SOURCES_COLLISION_DISPATCH "bullet/BulletCollision/CollisionDispatch/*.cpp")
+file(GLOB HEADERS_COLLISION_DISPATCH "bullet/BulletCollision/CollisionDispatch/*.h")
+file(GLOB SOURCES_COLLISION_SHAPES "bullet/BulletCollision/CollisionShapes/*.cpp")
+file(GLOB HEADERS_COLLISION_SHAPES "bullet/BulletCollision/CollisionShapes/*.h")
+file(GLOB SOURCES_COLLISION_GIMPACT "bullet/BulletCollision/Gimpact/*.cpp")
+file(GLOB HEADERS_COLLISION_GIMPACT "bullet/BulletCollision/Gimpact/*.h")
+file(GLOB SOURCES_COLLISION_NARROW "bullet/BulletCollision/NarrowPhaseCollision/*.cpp")
+file(GLOB HEADERS_COLLISION_NARROW "bullet/BulletCollision/NarrowPhaseCollision/*.h")
+
+add_library(BulletCollision
+    "bullet/btBulletCollisionCommon.h"
+    ${SOURCES_COLLISION_BROADPHASE} ${HEADERS_COLLISION_BROADPHASE}
+    ${SOURCES_COLLISION_DISPATCH} ${HEADERS_COLLISION_DISPATCH}
+    ${SOURCES_COLLISION_SHAPES} ${HEADERS_COLLISION_SHAPES}
+    ${SOURCES_COLLISION_GIMPACT} ${HEADERS_COLLISION_GIMPACT}
+    ${SOURCES_COLLISION_NARROW} ${HEADERS_COLLISION_NARROW}
+    )
+target_link_libraries(BulletCollision LinearMath)
+
+file(GLOB SOURCES_DYNAMICS_CHARACTER "bullet/BulletDynamics/Character/*.cpp")
+file(GLOB HEADERS_DYNAMICS_CHARACTER "bullet/BulletDynamics/Character/*.h")
+file(GLOB SOURCES_DYNAMICS_SOLVER "bullet/BulletDynamics/ConstraintSolver/*.cpp")
+file(GLOB HEADERS_DYNAMICS_SOLVER "bullet/BulletDynamics/ConstraintSolver/*.h")
+file(GLOB SOURCES_DYNAMICS_DYNAMICS "bullet/BulletDynamics/Dynamics/*.cpp")
+file(GLOB HEADERS_DYNAMICS_DYNAMICS "bullet/BulletDynamics/Dynamics/*.h")
+file(GLOB SOURCES_DYNAMICS_VEHICLE "bullet/BulletDynamics/Vehicle/*.cpp")
+file(GLOB HEADERS_DYNAMICS_VEHICLE "bullet/BulletDynamics/Vehicle/*.h")
+
+add_library(BulletDynamics
+    "bullet/btBulletDynamicsCommon.h"
+    "bullet/btBulletCollisionCommon.h"
+    ${SOURCES_DYNAMICS_CHARACTER} ${HEADERS_DYNAMICS_CHARACTER}
+    ${SOURCES_DYNAMICS_SOLVER} ${HEADERS_DYNAMICS_SOLVER}
+    ${SOURCES_DYNAMICS_DYNAMICS} ${HEADERS_DYNAMICS_DYNAMICS}
+    ${SOURCES_DYNAMICS_VEHICLE} ${HEADERS_DYNAMICS_VEHICLE})
+
+target_link_libraries(BulletDynamics BulletCollision LinearMath)
 
 add_executable(ecs
     main.cpp
@@ -66,9 +92,10 @@ add_executable(ecs
     physicssystem.cpp
     physics.cpp
     physics.h
+    physicsmanager.h
     physicsmanager.cpp
-    bullet/btBulletDynamicsCommon.h
-    bullet/btBulletCollisionCommon.h
+    motionstate.h
+    motionstate.cpp
 )
 
-target_link_libraries(ecs PRIVATE Qt${QT_VERSION_MAJOR}::Widgets LinearMath_Debug BulletCollision_Debug BulletDynamics_Debug)
+target_link_libraries(ecs Qt${QT_VERSION_MAJOR}::Widgets BulletDynamics BulletCollision LinearMath)

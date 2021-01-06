@@ -3,8 +3,9 @@
 
 #include "entity.h"
 
-struct Component
+class Component
 {
+public:
     Component();
     virtual bitmap getBitMap() const = 0;
     virtual ~Component();

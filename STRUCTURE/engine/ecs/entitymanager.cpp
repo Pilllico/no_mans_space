@@ -32,7 +32,7 @@ Entity EntityManager::createEntity() {
     return E;
 }
 
-void EntityManager::addComponentToEntity(Component* component, Entity e) {
+void EntityManager::addComponentToEntity(Entity e, Component* component) {
 
     // Récupère le bitmap du composant
     bitmap signature = component->getBitMap();
@@ -50,15 +50,39 @@ void EntityManager::addComponentToEntity(Component* component, Entity e) {
     notifyAll(e);
 }
 
-void EntityManager::addComponentsToEntity(std::vector<Component*> components, Entity e) {
+void EntityManager::addComponentToEntity(Entity e, QVector3D pos, QVector3D rot, QVector3D s)
+{
+    Transform transform(pos, rot, s);
+    this->addComponentToEntity(e, &transform);
+}
+
+void EntityManager::addComponentToEntity(Entity e, float m, CollisionShape cs)
+{
+    Physics p(m, cs);
+    this->addComponentToEntity(e, &p);
+}
+
+void EntityManager::addComponentsToEntity(Entity e, std::vector<Component*> components) {
 
     for (Component* c : components) {
-        addComponentToEntity(c, e);
+        addComponentToEntity(e, c);
     }
 }
 
 bitmap EntityManager::getBitMapFromEntity(Entity e) {
     return entitiesList[e];
+}
+
+ComponentManager* EntityManager::getComponentManagerForSystem(bitmap signature) {
+    if (signature.any())
+    {
+        for (auto it = componentManagers.begin(); it != componentManagers.end(); it++)
+        {
+            if (it->first == signature)
+                return it->second;
+        }
+    }
+    return nullptr;
 }
 
 std::vector<ComponentManager*> EntityManager::getComponentManagersForSystem(bitmap signature) {

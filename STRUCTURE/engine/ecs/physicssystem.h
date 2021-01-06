@@ -19,6 +19,7 @@ private:
     btSequentialImpulseConstraintSolver * solver;
     btDiscreteDynamicsWorld * dynamicsWorld;
     std::clock_t time;
+    std::unordered_map<Entity, std::pair<btCollisionShape*, btRigidBody*>, EntityHasher> data;
 };
 
 #endif // PHYSICSSYSTEM_H

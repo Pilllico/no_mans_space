@@ -16,13 +16,11 @@ public:
     Physics();
     Physics(float mass);
     Physics(float mass, CollisionShape cs);
-
-    float getMass() const;
-    CollisionShape getCollisionShape() const;
+    ~Physics();
 
     virtual bitmap getBitMap() const;
+
     static bitmap componentSignature;
-private:
     float mass;
     CollisionShape collisionShape;
     //MaterialProperties matProp;

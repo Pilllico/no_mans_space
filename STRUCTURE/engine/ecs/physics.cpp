@@ -17,16 +17,12 @@ Physics::Physics(float mass, CollisionShape cs)
     this->collisionShape = cs;
 }
 
-float Physics::getMass() const
+bitmap Physics::getBitMap() const
 {
-    return mass;
-}
-
-CollisionShape Physics::getCollisionShape() const
-{
-    return collisionShape;
-}
-
-bitmap Physics::getBitMap() const {
     return componentSignature;
+}
+
+Physics::~Physics()
+{
+
 }

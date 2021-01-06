@@ -12,11 +12,11 @@ public:
     TransformManager();
     virtual void addComponent(Entity e, Component* component);
     virtual void deleteComponent(Entity e);
-    const Transform& getTransform(Entity e);
-    std::vector<Transform> getTransforms(std::vector<Entity> entitiesList);
-    std::vector<Transform>& getAllTransforms();
+    Transform& getTransform(Entity e);
+    std::unordered_map<Entity, Transform, EntityHasher>& getAllTransforms();
 private:
-    std::vector<Transform> data;
+    //std::vector<Transform> data;
+    std::unordered_map<Entity, Transform, EntityHasher> data;
 };
 
 #endif // TRANSFORMMANAGER_H

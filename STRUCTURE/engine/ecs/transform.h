@@ -3,6 +3,7 @@
 
 #include "component.h"
 #include <QVector3D>
+#include "motionstate.h"
 
 class Transform : public Component
 {
@@ -11,14 +12,12 @@ public:
     Transform(QVector3D pos);
     Transform(QVector3D pos, QVector3D rot);
     Transform(QVector3D pos, QVector3D rot, QVector3D scale);
-    const QVector3D& getPosition() const;
-    const QVector3D& getRotation() const;
-    const QVector3D& getScale() const;
-    virtual bitmap getBitMap() const;
     virtual ~Transform();
 
+    virtual bitmap getBitMap() const;
     static bitmap componentSignature;
-private:    
+    MotionState* motionState = nullptr;
+
     QVector3D position;
     QVector3D rotation;
     QVector3D scale;

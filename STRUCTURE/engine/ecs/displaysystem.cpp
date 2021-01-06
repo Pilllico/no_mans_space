@@ -15,7 +15,7 @@ std::ostream& operator<< (std::ostream& os, const QVector3D& v)
 bool displaySystem::execute()
 {
     std::clock_t t1 = clock();
-    if ((t1 - time) / (double) CLOCKS_PER_SEC > 2.0) {
+    if ((t1 - time) / static_cast<double>(CLOCKS_PER_SEC) > 2.0) {
         time = t1;
         std::cout << "Test" << std::endl;
 
@@ -27,12 +27,12 @@ bool displaySystem::execute()
             bitmap signature = entityManager.getBitMapFromEntity(*it);
             std::cout << "Signature: " << signature << std::endl;
 
-            std::vector<ComponentManager*> componentManagers = entityManager.getComponentManagersForSystem(systemSignature);
+            TransformManager* transformManager = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")));
+            Transform transform = transformManager->getTransform(*it);
 
-            Transform transform = dynamic_cast<TransformManager*>(componentManagers.at(0))->getTransform(*it);
-
-            std::cout << transform.getPosition() << std::endl;
+            std::cout << transform.position << std::endl;
         }
+        std::cout << "End display System" << std::endl;
         return true;
     }
     return false;

@@ -22,11 +22,15 @@ public:
     static EntityManager & getInstance();
     Entity createEntity();
 
-    void addComponentToEntity(Component* component, Entity e);
-    void addComponentsToEntity(std::vector<Component*> components, Entity e);
+    void addComponentToEntity(Entity e, Component* component);
+    void addComponentToEntity(Entity e, QVector3D pos, QVector3D rot, QVector3D s);
+    void addComponentToEntity(Entity e, float m, CollisionShape cs);
+
+    void addComponentsToEntity(Entity e, std::vector<Component*> components);
 
     bitmap getBitMapFromEntity(Entity e);
 
+    ComponentManager* getComponentManagerForSystem(bitmap bitset);
     std::vector<ComponentManager*> getComponentManagersForSystem(bitmap bitset);
 
     bool deleteEntity(Entity e);

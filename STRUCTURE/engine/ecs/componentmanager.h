@@ -2,7 +2,7 @@
 #define COMPONENTMANAGER_H
 
 #include "component.h"
-#include "unordered_map"
+#include <unordered_map>
 
 class ComponentManager
 {
@@ -13,7 +13,7 @@ public:
     virtual ~ComponentManager();
     std::unordered_map<Entity, unsigned short, EntityHasher>& getAllIndices();
 protected:
-    std::unordered_map<Entity, unsigned short, EntityHasher> indices;
+    //std::unordered_map<Entity, unsigned short, EntityHasher> indices;
 };
 
 #endif // COMPONENTMANAGER_H

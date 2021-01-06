@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <bitset>
+#include <iostream>
 
 using bitmap = std::bitset<8>;
 
