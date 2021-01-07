@@ -15,24 +15,25 @@ std::ostream& operator<< (std::ostream& os, const QVector3D& v)
 bool displaySystem::execute()
 {
     std::clock_t t1 = clock();
-    if ((t1 - time) / static_cast<double>(CLOCKS_PER_SEC) > 2.0) {
+    if ((t1 - time) / static_cast<double>(CLOCKS_PER_SEC) > 1.0) {
         time = t1;
-        std::cout << "Test" << std::endl;
+        //std::cout << entityList.size() << std::endl;
 
-        std::cout << entityList.size() << std::endl;
+        TransformManager* transformManager = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")));
+        std::unordered_map<Entity, Transform, EntityHasher>& transforms = transformManager->getAllTransforms();
 
-        for (auto it = entityList.begin(); it !=entityList.end(); it++)
+        for (auto it = entityList.begin(); it != entityList.end(); it++)
         {
             std::cout << "id: " << it->id << std::endl;
             bitmap signature = entityManager.getBitMapFromEntity(*it);
-            std::cout << "Signature: " << signature << std::endl;
+            //std::cout << "Signature: " << signature << std::endl;
 
-            TransformManager* transformManager = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")));
-            Transform transform = transformManager->getTransform(*it);
+            //Transform transform = transforms.at(*it);
+            //std::cout << transform.position << std::endl;
 
-            std::cout << transform.position << std::endl;
+            std::cout << transforms.at(*it).position << std::endl;
+
         }
-        std::cout << "End display System" << std::endl;
         return true;
     }
     return false;

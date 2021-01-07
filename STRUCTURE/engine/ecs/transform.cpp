@@ -41,7 +41,7 @@ void MotionState::getWorldTransform(btTransform& worldTrans) const
     btVector3 position = btVector3(transform->position.x(), transform->position.y(), transform->position.z());
     btVector3 rot = btVector3(transform->rotation.x(), transform->rotation.y(), transform->rotation.z());
 
-    std::cout << "getting origin" << std::endl;
+    //std::cout << "getting origin" << std::endl;
 
     worldTrans.setOrigin(position);
     //worldTrans.setRotation();
@@ -49,6 +49,6 @@ void MotionState::getWorldTransform(btTransform& worldTrans) const
 
 void MotionState::setWorldTransform(const btTransform& worldTrans)
 {
-    std::cout << "setting origin" << std::endl;
+    //std::cout << "setting origin" << std::endl;
     transform->position = QVector3D(worldTrans.getOrigin().getX(), worldTrans.getOrigin().getY(), worldTrans.getOrigin().getZ());
 }

@@ -13,7 +13,7 @@ public:
     virtual void getWorldTransform(btTransform& worldTrans) const;
     virtual void setWorldTransform(const btTransform& worldTrans);
     Transform* transform = nullptr;
-    ~MotionState();
+    virtual ~MotionState();
 };
 
 #endif // MOTIONSTATE_H

@@ -11,22 +11,16 @@ physicsSystem::physicsSystem()
     solver = new btSequentialImpulseConstraintSolver ;
     dynamicsWorld = new btDiscreteDynamicsWorld ( dispatcher, overlappingPairCache, solver, collisionConfiguration);
 
-    dynamicsWorld->setGravity(btVector3(0, 0, -9.81f));
+    dynamicsWorld->setGravity(btVector3(0.0f, -9.81f, 0.0f));
 }
 
 bool physicsSystem::execute()
 {
-    std::cout << "Start Physics system" << std::endl;
     std::clock_t now = std::clock();
     float diff = static_cast<float>(difftime(now, time));
     time = now;
 
-    std::cout << diff << std::endl;
-
-    std::cout << "AAA" << std::endl;
     dynamicsWorld->stepSimulation(diff/1000.0f, 10);
-
-    std::cout << "End Physics system" << std::endl;
 
     return true;
 }
@@ -36,7 +30,7 @@ void physicsSystem::update(Entity e)
     // Entity e has new signature
     bitmap signature = EntityManager::getInstance().getBitMapFromEntity(e);
 
-    std::cout << "Notified" << std::endl;
+    std::cout << "System " << systemSignature << " notified" << std::endl;
 
     if (find(entityList.begin(), entityList.end(), e) != entityList.end()) {
         if ((signature&systemSignature) != systemSignature) {
@@ -55,36 +49,28 @@ void physicsSystem::update(Entity e)
     }
     else {
         if ((signature&systemSignature) == systemSignature) {
-            // create new MotionState for bullet
-            // TODO
 
-            std::cout <<"TEST1" << std::endl;
+            Transform& transform = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")))->getTransform(e);
 
-            TransformManager* transformManager = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")));
-            std::cout <<"TEST2" << std::endl;
-
-            PhysicsManager* physicsManager = dynamic_cast<PhysicsManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1000")));
-            std::cout <<"TEST3" << std::endl;
-
-            Transform& transform = transformManager->getTransform(e);
-            std::cout <<"TEST4" << std::endl;
-
-            Physics& physics = physicsManager->getPhysics(e);
-
-            std::cout <<"TEST5" << std::endl;
+            Physics& physics = dynamic_cast<PhysicsManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1000")))->getPhysics(e);
 
             transform.motionState = new MotionState(&transform);
 
             btCollisionShape* collisionShape;
 
-            if (physics.collisionShape == Sphere)
-                collisionShape = new btSphereShape(std::max(transform.scale.x(), std::max(transform.scale.y(),transform.scale.z())));
+            if (physics.collisionShape == Sphere) {
+                collisionShape = new btSphereShape(std::max(transform.scale.x(), std::max(transform.scale.y(), transform.scale.z())));
+            }
             else
                 collisionShape = new btBoxShape(btVector3(transform.scale.x(), transform.scale.y(), transform.scale.z()));
 
-            btRigidBody* rigidBody = new btRigidBody(physics.mass, transform.motionState, collisionShape);
+            btRigidBody::btRigidBodyConstructionInfo bodyCI(physics.mass, transform.motionState, collisionShape);
+            bodyCI.m_restitution = btScalar(0.5f);
+            bodyCI.m_friction = btScalar(0.0f);
+            //bodyCI.m_linearSleepingThreshold = btScalar(0.0f);
+            //bodyCI.m_angularSleepingThreshold = btScalar(0.0f);
 
-            std::cout <<"TEST6" << std::endl;
+            btRigidBody* rigidBody = new btRigidBody(bodyCI);
 
             dynamicsWorld->addRigidBody(rigidBody);
 
