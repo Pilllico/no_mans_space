@@ -15,6 +15,12 @@
 ########################
 
 //Dependencies for the target
+ANTTWEAKBAR_116_OGLCORE_GLFW_LIB_DEPENDS:STATIC=general;opengl32;general;glu32;
+
+//Build shared libraries
+BUILD_SHARED_LIBS:BOOL=OFF
+
+//Dependencies for the target
 BulletCollision_LIB_DEPENDS:STATIC=general;LinearMath;
 
 //Dependencies for the target
@@ -42,6 +48,24 @@ CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=/MD /Zi /O2 /Ob1 /DNDEBUG
 
 //Libraries linked by default with all C++ applications.
 CMAKE_CXX_STANDARD_LIBRARIES:STRING=kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+
+//Flags used by the C compiler during all build types.
+CMAKE_C_FLAGS:STRING=/DWIN32 /D_WINDOWS /W3
+
+//Flags used by the C compiler during DEBUG builds.
+CMAKE_C_FLAGS_DEBUG:STRING=/MDd /Zi /Ob0 /Od /RTC1
+
+//Flags used by the C compiler during MINSIZEREL builds.
+CMAKE_C_FLAGS_MINSIZEREL:STRING=/MD /O1 /Ob1 /DNDEBUG
+
+//Flags used by the C compiler during RELEASE builds.
+CMAKE_C_FLAGS_RELEASE:STRING=/MD /O2 /Ob2 /DNDEBUG
+
+//Flags used by the C compiler during RELWITHDEBINFO builds.
+CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=/MD /Zi /O2 /Ob1 /DNDEBUG
+
+//Libraries linked by default with all C applications.
+CMAKE_C_STANDARD_LIBRARIES:STRING=kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
 
 //Flags used by the linker during all build types.
 CMAKE_EXE_LINKER_FLAGS:STRING=/machine:X86
@@ -167,6 +191,61 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=OFF
 
+//Doxygen documentation generation tool (http://www.doxygen.org)
+DOXYGEN_EXECUTABLE:FILEPATH=DOXYGEN_EXECUTABLE-NOTFOUND
+
+//Dependencies for the target
+GLEW_1130_LIB_DEPENDS:STATIC=general;opengl32;general;glu32;
+
+//Value Computed by CMake
+GLFW_BINARY_DIR:STATIC=C:/dev/Qt/MoteurJeu/Projet/no_mans_space/STRUCTURE/engine/ecsCpp/build/external/glfw-3.1.2
+
+//Build the GLFW documentation
+GLFW_BUILD_DOCS:BOOL=ON
+
+//Build the GLFW example programs
+GLFW_BUILD_EXAMPLES:BOOL=ON
+
+//Build the GLFW test programs
+GLFW_BUILD_TESTS:BOOL=ON
+
+//Include internals in documentation
+GLFW_DOCUMENT_INTERNALS:BOOL=OFF
+
+//Generate installation target
+GLFW_INSTALL:BOOL=ON
+
+//Dependencies of GLFW
+GLFW_LIBRARIES:STRING=opengl32
+
+//Value Computed by CMake
+GLFW_SOURCE_DIR:STATIC=C:/dev/Qt/MoteurJeu/Projet/no_mans_space/STRUCTURE/engine/ecsCpp/external/glfw-3.1.2
+
+//Use EGL for context creation
+GLFW_USE_EGL:BOOL=OFF
+
+//Force use of high-performance GPU on hybrid systems
+GLFW_USE_HYBRID_HPG:BOOL=OFF
+
+//Takes an empty string or 64. Directory where lib will be installed:
+// lib or lib64
+LIB_SUFFIX:STRING=
+
+//OpenGL library for win32
+OPENGL_gl_LIBRARY:STRING=opengl32
+
+//GLU library for win32
+OPENGL_glu_LIBRARY:STRING=glu32
+
+//Use MSVC runtime library DLL
+USE_MSVC_RUNTIME_LIBRARY_DLL:BOOL=ON
+
+//Fix for VC10 Compiler regarding pstdint.h redefinition errors
+VC10_STDINT_FIX:BOOL=OFF
+
+//Dependencies for the target
+assimp_LIB_DEPENDS:STATIC=general;zlib;
+
 //Value Computed by CMake
 ecs_BINARY_DIR:STATIC=C:/dev/Qt/MoteurJeu/Projet/no_mans_space/STRUCTURE/engine/ecsCpp/build
 
@@ -204,6 +283,18 @@ CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_STANDARD_LIBRARIES
 CMAKE_CXX_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS
+CMAKE_C_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_DEBUG
+CMAKE_C_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_MINSIZEREL
+CMAKE_C_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELEASE
+CMAKE_C_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELWITHDEBINFO
+CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_STANDARD_LIBRARIES
+CMAKE_C_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1
 //Executable file format
 CMAKE_EXECUTABLE_FORMAT:INTERNAL=Unknown
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
@@ -226,6 +317,8 @@ CMAKE_GENERATOR_INSTANCE:INTERNAL=F:/VisualStudio2017
 CMAKE_GENERATOR_PLATFORM:INTERNAL=
 //Name of generator toolset.
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
+//Have include pthread.h
+CMAKE_HAVE_PTHREAD_H:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
 CMAKE_HOME_DIRECTORY:INTERNAL=C:/dev/Qt/MoteurJeu/Projet/no_mans_space/STRUCTURE/engine/ecsCpp
@@ -244,7 +337,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RC_COMPILER
@@ -288,4 +381,28 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: DOXYGEN_EXECUTABLE
+DOXYGEN_EXECUTABLE-ADVANCED:INTERNAL=1
+//Details about finding OpenGL
+FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[opengl32][c ][v()]
+//Details about finding Threads
+FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//Have function fseeko
+HAVE_FSEEKO:INTERNAL=
+//Result of TRY_COMPILE
+HAVE_OFF64_T:INTERNAL=FALSE
+//Have include stddef.h
+HAVE_STDDEF_H:INTERNAL=1
+//Have include stdint.h
+HAVE_STDINT_H:INTERNAL=1
+//Have include sys/types.h
+HAVE_SYS_TYPES_H:INTERNAL=1
+//CHECK_TYPE_SIZE: off64_t unknown
+OFF64_T:INTERNAL=
+//ADVANCED property for variable: OPENGL_gl_LIBRARY
+OPENGL_gl_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENGL_glu_LIBRARY
+OPENGL_glu_LIBRARY-ADVANCED:INTERNAL=1
+//Have include unistd.h
+Z_HAVE_UNISTD_H:INTERNAL=
 

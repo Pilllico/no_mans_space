@@ -60,7 +60,7 @@ void physicsSystem::update(Entity e)
             btCollisionShape* collisionShape;
 
             if (physics.collisionShape == Sphere) {
-                collisionShape = new btSphereShape(0.5f * std::max(transform.scale.x(), std::max(transform.scale.y(), transform.scale.z())));
+                collisionShape = new btSphereShape(std::max(transform.scale.x(), std::max(transform.scale.y(), transform.scale.z())));
             }
             else
                 collisionShape = new btBoxShape(btVector3(transform.scale.x(), transform.scale.y(), transform.scale.z()));

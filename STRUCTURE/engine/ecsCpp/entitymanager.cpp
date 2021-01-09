@@ -12,6 +12,7 @@ EntityManager::EntityManager()
 {
     componentManagers.insert(std::make_pair(Transform::componentSignature, new TransformManager()));
     componentManagers.insert(std::make_pair(Physics::componentSignature, new PhysicsManager()));
+	componentManagers.insert(std::make_pair(Render::componentSignature, new RenderManager()));
 }
 
 EntityManager::~EntityManager()
@@ -60,6 +61,15 @@ void EntityManager::addComponentToEntity(Entity e, float m, CollisionShape cs)
 {
     Physics p(m, cs);
     this->addComponentToEntity(e, &p);
+}
+
+void EntityManager::addComponentToEntity(Entity e, GLuint programID, std::string object_name)
+{
+	Render r;
+	r.programID = programID;
+	r.object_name = object_name;
+
+	this->addComponentToEntity(e, &r);
 }
 
 void EntityManager::addComponentsToEntity(Entity e, std::vector<Component*> components) {

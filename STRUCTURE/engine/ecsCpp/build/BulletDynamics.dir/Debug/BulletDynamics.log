@@ -1,1 +1,42 @@
-﻿  BulletDynamics.vcxproj -> C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\build\Debug\BulletDynamics.lib
+﻿  btKinematicCharacterController.cpp
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\Character\btKinematicCharacterController.cpp(139): warning C4305: '=': truncation from 'double' to 'btScalar'
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\Character\btKinematicCharacterController.cpp(149): warning C4305: '=': truncation from 'double' to 'btScalar'
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\Character\btKinematicCharacterController.cpp(157): warning C4305: '=': truncation from 'double' to 'btScalar'
+  btBatchedConstraints.cpp
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btBatchedConstraints.cpp(169): warning C4244: 'argument': conversion from 'double' to 'const btScalar', possible loss of data
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btBatchedConstraints.cpp(661): warning C4305: 'argument': truncation from 'double' to 'const btScalar'
+  btConeTwistConstraint.cpp
+  btContactConstraint.cpp
+  btFixedConstraint.cpp
+  btGearConstraint.cpp
+  btGeneric6DofConstraint.cpp
+  btGeneric6DofSpring2Constraint.cpp
+  btGeneric6DofSpringConstraint.cpp
+  btHinge2Constraint.cpp
+  btHingeConstraint.cpp
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btHingeConstraint.cpp(304): warning C4305: 'initializing': truncation from 'double' to 'btScalar'
+  btNNCGConstraintSolver.cpp
+  btPoint2PointConstraint.cpp
+  btSequentialImpulseConstraintSolver.cpp
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp(76): warning C4244: 'return': conversion from 'double' to 'btScalar', possible loss of data
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp(100): warning C4244: 'return': conversion from 'double' to 'btScalar', possible loss of data
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp(202): warning C4244: 'return': conversion from 'double' to 'btScalar', possible loss of data
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp(255): warning C4244: 'return': conversion from 'double' to 'btScalar', possible loss of data
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp(313): warning C4244: 'return': conversion from 'double' to 'btScalar', possible loss of data
+C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\bullet\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp(347): warning C4244: 'return': conversion from 'double' to 'btScalar', possible loss of data
+  btSequentialImpulseConstraintSolverMt.cpp
+  btSliderConstraint.cpp
+  btSolve2LinearConstraint.cpp
+  btTypedConstraint.cpp
+  btUniversalConstraint.cpp
+  btDiscreteDynamicsWorld.cpp
+  Generating Code...
+  Compiling...
+  btDiscreteDynamicsWorldMt.cpp
+  btRigidBody.cpp
+  btSimpleDynamicsWorld.cpp
+  btSimulationIslandManagerMt.cpp
+  btRaycastVehicle.cpp
+  btWheelInfo.cpp
+  Generating Code...
+  BulletDynamics.vcxproj -> C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\build\Debug\BulletDynamics.lib
