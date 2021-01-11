@@ -1,6 +1,0 @@
-﻿  main.cpp
-C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\main.cpp(45): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\main.cpp(46): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\main.cpp(47): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\main.cpp(48): warning C4305: 'argument': truncation from 'double' to 'float'
-  ecs.vcxproj -> C:\dev\Qt\MoteurJeu\Projet\no_mans_space\STRUCTURE\engine\ecsCpp\build\Debug\ecs.exe
