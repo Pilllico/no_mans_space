@@ -16,6 +16,9 @@ private:
 	Vector3 axisB;
 
 public:
+
+	PlanetFace() {}
+
 	PlanetFace(ShapeGenerator shapeGenerator, int resolution, Vector3 localUp) {
 		this->shapeGenerator = shapeGenerator;
 		this->mesh = mesh;

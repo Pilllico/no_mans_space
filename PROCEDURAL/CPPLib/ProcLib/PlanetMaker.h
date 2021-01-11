@@ -22,7 +22,8 @@ class PlanetMaker {
     float speed;
 
 public:
-    PlanetMaker(Vector3 solarSysCenter, float orbit) {
+
+    PlanetMaker(Vector3 solarSysCenter = Vector3::zero, float orbit = 0) {
         //INIT
         Vector3 seedPosition = solarSysCenter * orbit;
         seed = ((int)(seedPosition.x)) | (((int)(seedPosition.y)) << 8) | (((int)(seedPosition.z)) << 16);
@@ -36,7 +37,7 @@ public:
 
         initialize();
         generateMesh();
-    }
+    } 
 
 private:
     void initialize() {

@@ -1,1 +1,13 @@
-﻿
+﻿  ProcLib.cpp
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Vector3.h(43,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Vector3.h(79,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\SurfaceNoiseSettings.h(12,17): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\NoiseFilter.h(24,60): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\ShapeGenerator.h(43,31): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Mesh.h(23,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Mesh.h(36,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Vector2.h(31,55): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\PlanetFace.h(41,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\PlanetFace.h(41,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\PlanetFace.h(41,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  ProcLib.vcxproj -> C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Debug\ProcLib.exe

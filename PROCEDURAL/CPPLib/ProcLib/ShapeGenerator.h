@@ -39,11 +39,12 @@ public:
         //BASE LAYER
         if (PlanetSettings::BASE_LAYER.ACTIVE) altitude = getAltitudeFromNoiseLayer(PlanetSettings::BASE_LAYER, pointOnUnitSphere);
         //DETAIL LAYERS
-        for(int i = 0; i <= PlanetSettings::ADDITIONAL_LAYERS.size(); i++){
-            SurfaceNoiseSettings layer = PlanetSettings::ADDITIONAL_LAYERS[i];
-            if (altitude > 0 && layer.ACTIVE) altitude += getAltitudeFromNoiseLayer(layer, pointOnUnitSphere);
+        if (!PlanetSettings::ADDITIONAL_LAYERS.empty()) {
+            for (int i = 0; i <= PlanetSettings::ADDITIONAL_LAYERS.size(); i++) {
+                SurfaceNoiseSettings layer = PlanetSettings::ADDITIONAL_LAYERS[i];
+                if (altitude > 0 && layer.ACTIVE) altitude += getAltitudeFromNoiseLayer(layer, pointOnUnitSphere);
+            }
         }
-
         Vector3 pointOnPlanet = pointOnUnitSphere * (1 + altitude);
         return pointOnPlanet;// * radius;
     }
