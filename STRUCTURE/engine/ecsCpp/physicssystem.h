@@ -12,6 +12,7 @@ public:
     bool virtual execute();
     virtual void update(Entity e);
     ~physicsSystem();
+	std::unordered_map<Entity, std::pair<btCollisionShape*, btRigidBody*>, EntityHasher>& getData();
 private:
     btDefaultCollisionConfiguration * collisionConfiguration;
     btCollisionDispatcher * dispatcher;

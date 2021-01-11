@@ -1,8 +1,6 @@
 #ifndef RENDERSYSTEM_H
 #define RENDERSYSTEM_H
 
-#include "system.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -25,6 +23,9 @@ using namespace glm;
 #include <common/objloader.hpp>
 #include <common/vboindexer.hpp>
 #include <common/tangentspace.hpp>
+
+#include "system.h"
+#include "physicssystem.h"
 
 using namespace std;
 
@@ -85,9 +86,9 @@ public:
     renderSystem();
 	bool initialize();
     bool virtual execute();
+	void setViewMatrix(glm::mat4 ViewMatrix);
 	void Clean();
 	GLuint getProgramID();
-	//GLFWwindow* window;
     ~renderSystem();
 private:
 	bool Init();
@@ -104,6 +105,8 @@ private:
 	std::unordered_map<string, Object> objects;
 	vec3 lightPos;
 	GLuint VertexArrayID;
+	glm::mat4 ProjectionMatrix;
+	glm::mat4 ViewMatrix;
 };
 
 #endif // RENDERSYSTEM_H

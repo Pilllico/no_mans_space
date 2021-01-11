@@ -57,9 +57,9 @@ void EntityManager::addComponentToEntity(Entity e, btVector3 pos, btVector3 rot,
     this->addComponentToEntity(e, &transform);
 }
 
-void EntityManager::addComponentToEntity(Entity e, float m, CollisionShape cs)
+void EntityManager::addComponentToEntity(Entity e, float m, float strength, CollisionShape cs, bool isController)
 {
-    Physics p(m, cs);
+    Physics p(m, strength, cs, isController);
     this->addComponentToEntity(e, &p);
 }
 

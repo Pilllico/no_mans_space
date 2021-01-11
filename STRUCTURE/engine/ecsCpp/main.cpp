@@ -11,7 +11,6 @@ GLFWwindow* window;
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-using namespace glm;
 
 #include <common/shader.hpp>
 #include <common/texture.hpp>
@@ -33,19 +32,109 @@ int main(int argc, char *argv[])
 	renderSystem renderSystem;
 	renderSystem.initialize();
 
-	Entity e1 = EntityManager::getInstance().createEntity();
-	Entity e2 = EntityManager::getInstance().createEntity();
+	Entity planet = EntityManager::getInstance().createEntity();
+	Entity body1 = EntityManager::getInstance().createEntity();
+	Entity body2 = EntityManager::getInstance().createEntity();
+	Entity player = EntityManager::getInstance().createEntity();
 
-	EntityManager::getInstance().addComponentToEntity(e1, btVector3(0.0f, 20.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f), btVector3(1.0f, 1.0f, 1.0f));
-	EntityManager::getInstance().addComponentToEntity(e2, btVector3(-1.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
-	EntityManager::getInstance().addComponentToEntity(e1, 1.0f, Sphere);
-	EntityManager::getInstance().addComponentToEntity(e2, 0.0f, Box);	
+	EntityManager::getInstance().addComponentToEntity(planet, btVector3(0.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f), btVector3(10.0f, 10.0f, 10.0f));
+	EntityManager::getInstance().addComponentToEntity(body1, btVector3(20.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
+	EntityManager::getInstance().addComponentToEntity(body2, btVector3(0.0f, 20.0f, 0.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
+	EntityManager::getInstance().addComponentToEntity(player, btVector3(0.0f, 0.0f, 20.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
 
-	EntityManager::getInstance().addComponentToEntity(e1, renderSystem.getProgramID(), "sphere");
-	EntityManager::getInstance().addComponentToEntity(e2, renderSystem.getProgramID(), "cube");
+	EntityManager::getInstance().addComponentToEntity(planet, 0.0f, 9.81, Sphere);
+	EntityManager::getInstance().addComponentToEntity(body1, 1.0f, 9.81, Sphere);	
+	EntityManager::getInstance().addComponentToEntity(body2, 1.0f, 9.81, Sphere);
+	EntityManager::getInstance().addComponentToEntity(player, 1.0f, 9.81, Sphere);
+
+	EntityManager::getInstance().addComponentToEntity(planet, renderSystem.getProgramID(), "sphere");
+	EntityManager::getInstance().addComponentToEntity(body1, renderSystem.getProgramID(), "sphere");
+	EntityManager::getInstance().addComponentToEntity(body2, renderSystem.getProgramID(), "sphere");
+
+	btRigidBody* controllerBody = physicsSystem.getData().at(player).second;
+
+	// Initial horizontal angle : toward -Z
+	float horizontalAngle = 3.14f;
+	// Initial vertical angle : none
+	float verticalAngle = 0.0f;
+	
+	float burstStrength = 0.5f;
+	float mouseSpeed = 0.005f;
+
+	double lastTime = glfwGetTime();
 
 	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0)
 	{
+		const Transform& transform = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")))->getTransform(player);
+		glm::vec3 position = glm::vec3(transform.position.getX(), transform.position.getY(), transform.position.getZ());
+
+		// Compute time difference between current and last frame
+		double currentTime = glfwGetTime();
+		float deltaTime = float(currentTime - lastTime);
+
+		// Get mouse position
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+
+		// Reset mouse position for next frame
+		glfwSetCursorPos(window, 1024 / 2, 768 / 2);
+
+		// Compute new orientation
+		horizontalAngle += mouseSpeed * float(1024 / 2 - xpos);
+		verticalAngle += mouseSpeed * float(768 / 2 - ypos);
+
+		// Direction : Spherical coordinates to Cartesian coordinates conversion
+		glm::vec3 direction(
+			cos(verticalAngle) * sin(horizontalAngle),
+			sin(verticalAngle),
+			cos(verticalAngle) * cos(horizontalAngle)
+		);
+
+		// Right vector
+		glm::vec3 right = glm::vec3(
+			sin(horizontalAngle - 3.14f / 2.0f),
+			0,
+			cos(horizontalAngle - 3.14f / 2.0f)
+		);
+
+		// Up vector
+		glm::vec3 up = glm::cross(right, direction);
+
+		// Move forward
+		if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+			controllerBody->applyCentralImpulse(burstStrength * btVector3(direction.x, direction.y, direction.z));
+		}
+		// Move backward
+		if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+			controllerBody->applyCentralImpulse(-burstStrength * btVector3(direction.x, direction.y, direction.z));
+		}
+		// Strafe right
+		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+			controllerBody->applyCentralImpulse(burstStrength * btVector3(right.x, right.y, right.z));
+		}
+		// Strafe left
+		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+			controllerBody->applyCentralImpulse(-burstStrength * btVector3(right.x, right.y, right.z));
+		}
+		// Strafe up
+		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+			controllerBody->applyCentralImpulse(burstStrength * btVector3(up.x, up.y, up.z));
+		}
+		// Strafe left
+		if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+			controllerBody->applyCentralImpulse(-burstStrength * btVector3(up.x, up.y, up.z));
+		}
+
+		renderSystem.setViewMatrix(glm::lookAt(
+			position,           // Camera is here
+			position + direction, // and looks here : at the same position, plus "direction"
+			up                  // Head is up (set to 0,-1,0 to look upside-down)
+		));
+
+		// For the next frame, the "last time" will be "now"
+		lastTime = currentTime;
+
+
 		displaySystem.execute();
 		physicsSystem.execute();
 		renderSystem.execute();

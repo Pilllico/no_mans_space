@@ -5,6 +5,7 @@ extern GLFWwindow* window;
 renderSystem::renderSystem()
 {
 	systemSignature = bitmap("00000011");
+	ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 500.0f);
 }
 
 bool renderSystem::initialize()
@@ -94,7 +95,6 @@ void renderSystem::ParamAndID(string vertexShader, string fragmentShader)
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
 
-	// ??????
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
@@ -193,11 +193,14 @@ void renderSystem::VBOLoader(string name)
 void renderSystem::ComputeAndShare(GLuint programID, const Transform& transform)
 {
 	// Compute the MVP matrix from keyboard and mouse input
-	computeMatricesFromInputs(/*window*/);
-	glm::mat4 ProjectionMatrix = getProjectionMatrix();
-	glm::mat4 ViewMatrix = getViewMatrix();
+	computeMatricesFromInputs();
+	//glm::mat4 ProjectionMatrix = getProjectionMatrix();
+	//glm::mat4 ViewMatrix = getViewMatrix();
+
 	glm::mat4 ModelMatrix = glm::mat4(1.0);
 	ModelMatrix = glm::translate(ModelMatrix, glm::vec3(transform.position.getX(), transform.position.getY(), transform.position.getZ()));
+
+	// Faux, à corriger avec les angles d'euler, pas les bon angles actuellement
 	ModelMatrix = glm::rotate(ModelMatrix, transform.rotation.getX(), glm::vec3(1.0f, 0.0f, 0.0f));
 	ModelMatrix = glm::rotate(ModelMatrix, transform.rotation.getY(), glm::vec3(0.0f, 1.0f, 0.0f));
 	ModelMatrix = glm::rotate(ModelMatrix, transform.rotation.getZ(), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -376,7 +379,7 @@ bool renderSystem::execute()
 
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	for (Entity e : entityList)
 	{
 		const Render& render = renders.at(e);
@@ -388,7 +391,7 @@ bool renderSystem::execute()
 
 		ComputeAndShare(programID, transforms.at(e));
 
-		lightPos = vec3(0, 0, 4);
+		lightPos = vec3(0, 0, 50);
 		glUniform3f(shaderData.at(programID).LightID, lightPos.x, lightPos.y, lightPos.z);
 
 		Binding(programID, render.object_name);
@@ -400,6 +403,11 @@ bool renderSystem::execute()
 	glfwPollEvents();
 
 	return true;
+}
+
+void renderSystem::setViewMatrix(glm::mat4 ViewMatrix)
+{
+	this->ViewMatrix = ViewMatrix;
 }
 
 bool renderSystem::Init()

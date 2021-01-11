@@ -21,7 +21,7 @@ glm::mat4 getProjectionMatrix(){
 
 
 // Initial position : on +Z
-glm::vec3 position = glm::vec3( 0, 1, 10 ); 
+glm::vec3 position = glm::vec3( 0, 1, 30 ); 
 // Initial horizontal angle : toward -Z
 float horizontalAngle = 3.14f;
 // Initial vertical angle : none
@@ -34,7 +34,7 @@ float mouseSpeed = 0.005f;
 
 
 
-void computeMatricesFromInputs(/*GLFWwindow* window*/){
+void computeMatricesFromInputs(){
 
 	// glfwGetTime is called only once, the first time this function is called
 	static double lastTime = glfwGetTime();
@@ -74,18 +74,22 @@ void computeMatricesFromInputs(/*GLFWwindow* window*/){
 	// Move forward
 	if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS){
 		position += direction * deltaTime * speed;
+		//body->applyCentralImpulse(btVector3(direction.x, direction.y, direction.z));
 	}
 	// Move backward
 	if (glfwGetKey( window, GLFW_KEY_DOWN ) == GLFW_PRESS){
 		position -= direction * deltaTime * speed;
+		//body->applyCentralImpulse(-btVector3(direction.x, direction.y, direction.z));
 	}
 	// Strafe right
 	if (glfwGetKey( window, GLFW_KEY_RIGHT ) == GLFW_PRESS){
 		position += right * deltaTime * speed;
+		//body->applyCentralImpulse(btVector3(right.x, right.y, right.z));
 	}
 	// Strafe left
 	if (glfwGetKey( window, GLFW_KEY_LEFT ) == GLFW_PRESS){
 		position -= right * deltaTime * speed;
+		//body->applyCentralImpulse(-btVector3(right.x, right.y, right.z));
 	}
 
 	float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.

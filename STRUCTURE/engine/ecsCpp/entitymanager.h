@@ -13,8 +13,8 @@
 #include "transformmanager.h"
 #include "physics.h"
 #include "physicsmanager.h"
-#include "Render.h"
-#include "RenderManager.h"
+#include "render.h"
+#include "rendermanager.h"
 
 class System;
 
@@ -26,7 +26,7 @@ public:
 
     void addComponentToEntity(Entity e, Component* component);
     void addComponentToEntity(Entity e, btVector3 pos, btVector3 rot, btVector3 s);
-    void addComponentToEntity(Entity e, float m, CollisionShape cs);
+	void addComponentToEntity(Entity e, float m, float strength, CollisionShape cs, bool isController = false);
 	void addComponentToEntity(Entity e, GLuint programID, std::string object_name);
 
     void addComponentsToEntity(Entity e, std::vector<Component*> components);
