@@ -27,7 +27,7 @@ public:
     void addComponentToEntity(Entity e, Component* component);
     void addComponentToEntity(Entity e, btVector3 pos, btVector3 rot, btVector3 s);
 	void addComponentToEntity(Entity e, float m, float strength, CollisionShape cs, bool isController = false);
-	void addComponentToEntity(Entity e, GLuint programID, std::string object_name);
+	void addComponentToEntity(Entity e, GLuint programID, std::string object_name, Mesh* mesh);
 
     void addComponentsToEntity(Entity e, std::vector<Component*> components);
 

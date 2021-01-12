@@ -30,26 +30,32 @@ int main(int argc, char *argv[])
 	physicsSystem physicsSystem;
 
 	renderSystem renderSystem;
-	renderSystem.initialize();
+	std::unordered_map<std::string, Mesh*> meshes;
+	renderSystem.initialize(meshes);
 
-	Entity planet = EntityManager::getInstance().createEntity();
+	Entity planet1 = EntityManager::getInstance().createEntity();
+	Entity planet2 = EntityManager::getInstance().createEntity();
 	Entity body1 = EntityManager::getInstance().createEntity();
 	Entity body2 = EntityManager::getInstance().createEntity();
 	Entity player = EntityManager::getInstance().createEntity();
 
-	EntityManager::getInstance().addComponentToEntity(planet, btVector3(0.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f), btVector3(10.0f, 10.0f, 10.0f));
-	EntityManager::getInstance().addComponentToEntity(body1, btVector3(20.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
+	EntityManager::getInstance().addComponentToEntity(planet1, btVector3(0.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f), btVector3(10.0f, 10.0f, 10.0f));
+	EntityManager::getInstance().addComponentToEntity(planet2, btVector3(50.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f), btVector3(10.0f, 10.0f, 10.0f));
+	EntityManager::getInstance().addComponentToEntity(body1, btVector3(25.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
 	EntityManager::getInstance().addComponentToEntity(body2, btVector3(0.0f, 20.0f, 0.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
 	EntityManager::getInstance().addComponentToEntity(player, btVector3(0.0f, 0.0f, 20.0f), btVector3(0.0f, 0.0f, 45.0f), btVector3(1.0f, 1.0f, 1.0f));
 
-	EntityManager::getInstance().addComponentToEntity(planet, 0.0f, 9.81, Sphere);
-	EntityManager::getInstance().addComponentToEntity(body1, 1.0f, 9.81, Sphere);	
+	EntityManager::getInstance().addComponentToEntity(planet1, renderSystem.getProgramID(), "suzanne", meshes.at("suzanne"));
+	EntityManager::getInstance().addComponentToEntity(planet2, renderSystem.getProgramID(), "sphere", meshes.at("sphere"));
+	EntityManager::getInstance().addComponentToEntity(body1, renderSystem.getProgramID(), "sphere", meshes.at("sphere"));
+	EntityManager::getInstance().addComponentToEntity(body2, renderSystem.getProgramID(), "sphere", meshes.at("sphere"));
+	EntityManager::getInstance().addComponentToEntity(player, renderSystem.getProgramID(), "sphere", meshes.at("sphere"));
+
+	EntityManager::getInstance().addComponentToEntity(planet1, 0.0f, 9.81, tMesh);
+	EntityManager::getInstance().addComponentToEntity(planet2, 0.0f, 9.81, Sphere);
+	EntityManager::getInstance().addComponentToEntity(body1, 1.0f, 9.81, Sphere);
 	EntityManager::getInstance().addComponentToEntity(body2, 1.0f, 9.81, Sphere);
 	EntityManager::getInstance().addComponentToEntity(player, 1.0f, 9.81, Sphere);
-
-	EntityManager::getInstance().addComponentToEntity(planet, renderSystem.getProgramID(), "sphere");
-	EntityManager::getInstance().addComponentToEntity(body1, renderSystem.getProgramID(), "sphere");
-	EntityManager::getInstance().addComponentToEntity(body2, renderSystem.getProgramID(), "sphere");
 
 	btRigidBody* controllerBody = physicsSystem.getData().at(player).second;
 
@@ -58,7 +64,7 @@ int main(int argc, char *argv[])
 	// Initial vertical angle : none
 	float verticalAngle = 0.0f;
 	
-	float burstStrength = 0.5f;
+	float burstStrength = 0.3f;
 	float mouseSpeed = 0.005f;
 
 	double lastTime = glfwGetTime();

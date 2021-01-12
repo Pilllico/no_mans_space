@@ -44,21 +44,6 @@ struct Buffers {
 	GLuint elementbuffer;
 };
 
-struct Mesh {
-	vector<vec3> vertices;
-	vector<vec2> uvs;
-	vector<vec3> normals;
-	vector<vec3> tangents;
-	vector<vec3> bitangents;
-
-	vector<unsigned short> indices;
-	vector<vec3> indexed_vertices;
-	vector<vec2> indexed_uvs;
-	vector<vec3> indexed_normals;
-	vector<vec3> indexed_tangents;
-	vector<vec3> indexed_bitangents;
-};
-
 struct Object {
 	Textures textures;
 
@@ -84,7 +69,7 @@ class renderSystem : public System
 {
 public:
     renderSystem();
-	bool initialize();
+	bool initialize(std::unordered_map<std::string, Mesh*>& meshes);
     bool virtual execute();
 	void setViewMatrix(glm::mat4 ViewMatrix);
 	void Clean();

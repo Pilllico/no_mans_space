@@ -63,11 +63,12 @@ void EntityManager::addComponentToEntity(Entity e, float m, float strength, Coll
     this->addComponentToEntity(e, &p);
 }
 
-void EntityManager::addComponentToEntity(Entity e, GLuint programID, std::string object_name)
+void EntityManager::addComponentToEntity(Entity e, GLuint programID, std::string object_name, Mesh* mesh)
 {
 	Render r;
 	r.programID = programID;
 	r.object_name = object_name;
+	r.mesh = mesh;
 
 	this->addComponentToEntity(e, &r);
 }

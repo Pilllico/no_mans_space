@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <limits>
 
+#include "render.h"
+
 physicsSystem::physicsSystem()
 {
     time = std::clock();
@@ -22,55 +24,7 @@ bool physicsSystem::execute()
     float diff = static_cast<float>(difftime(now, time));
     time = now;
 
-	// TO DO : controllerSystem
-	/*
-	// Get mouse position
-	double xpos, ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-
-	// Reset mouse position for next frame
-	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
-
-	// Compute new orientation
-	horizontalAngle += mouseSpeed * float(1024 / 2 - xpos);
-	verticalAngle += mouseSpeed * float(768 / 2 - ypos);
-
-	// Direction : Spherical coordinates to Cartesian coordinates conversion
-	glm::vec3 direction(
-		cos(verticalAngle) * sin(horizontalAngle),
-		sin(verticalAngle),
-		cos(verticalAngle) * cos(horizontalAngle)
-	);
-
-	// Right vector
-	glm::vec3 right = glm::vec3(
-		sin(horizontalAngle - 3.14f / 2.0f),
-		0,
-		cos(horizontalAngle - 3.14f / 2.0f)
-	);
-
-	// Up vector
-	glm::vec3 up = glm::cross(right, direction);
-
-	// Move forward
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-		data.at(controller).second->applyCentralImpulse(btVector3(direction.x, direction.y, direction.z));
-	}
-	// Move backward
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-		data.at(controller).second->applyCentralImpulse(-btVector3(direction.x, direction.y, direction.z));
-	}
-	// Strafe right
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-		data.at(controller).second->applyCentralImpulse(btVector3(right.x, right.y, right.z));
-	}
-	// Strafe left
-	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-		data.at(controller).second->applyCentralImpulse(-btVector3(right.x, right.y, right.z));
-	}
-	*/
-
-	btVector3 planet;
+	std::vector<btVector3> planets;
 
 	for (auto pair : data) {
 		btRigidBody* rBody = pair.second.second;
@@ -79,7 +33,7 @@ bool physicsSystem::execute()
 			Entity e = pair.first;
 			const Transform& transform = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")))->getTransform(e);
 
-			planet = transform.position;
+			planets.push_back(transform.position);
 		}
 	}
 
@@ -92,11 +46,16 @@ bool physicsSystem::execute()
 			const Transform& transform = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")))->getTransform(e);
 			const Physics& physics = dynamic_cast<PhysicsManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1000")))->getPhysics(e);
 
-			btScalar dist = (planet - transform.position).length();
-			btVector3 dir = (planet - transform.position).normalize();
-			btScalar strength = physics.gravityStrength / ( dist/10.0f * dist/10.0f );
+			btVector3 direction = btVector3(0.0f, 0.0f, 0.0f);
 
-			rBody->setGravity(strength * dir);
+			for (btVector3 planet : planets) {
+				btScalar dist = (planet - transform.position).length();
+				btVector3 dir = (planet - transform.position).normalize();
+				btScalar strength = physics.gravityStrength / (dist / 10.0f * dist / 10.0f);
+				direction += strength * dir;
+			}
+
+			rBody->setGravity(direction);
 		}
 	}
 
@@ -134,9 +93,7 @@ void physicsSystem::update(Entity e)
 			Transform& transform = dynamic_cast<TransformManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1")))->getTransform(e);
 
 			const Physics& physics = dynamic_cast<PhysicsManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("1000")))->getPhysics(e);
-
-			//if (physics.isController)
-			//	controller = e;
+			const Render& render = dynamic_cast<RenderManager*>(EntityManager::getInstance().getComponentManagerForSystem(bitmap("10")))->getRender(e);
 
             transform.motionState = new MotionState(&transform);
 
@@ -145,8 +102,36 @@ void physicsSystem::update(Entity e)
             if (physics.collisionShape == Sphere) {
                 collisionShape = new btSphereShape(std::max(transform.scale.x(), std::max(transform.scale.y(), transform.scale.z())));
             }
-            else
-                collisionShape = new btBoxShape(btVector3(transform.scale.x(), transform.scale.y(), transform.scale.z()));
+			else if (physics.collisionShape == Box) {
+				collisionShape = new btBoxShape(btVector3(transform.scale.x(), transform.scale.y(), transform.scale.z()));
+			}
+			else if (physics.collisionShape == tMesh) {
+
+				std::vector<glm::vec3>& vertices = render.mesh->vertices;
+
+				// Fuite de mémoire ici, à corriger ASAP
+				//std::shared_ptr<btTriangleMesh> tMesh(new btTriangleMesh());
+				btTriangleMesh* tMesh = new btTriangleMesh();
+
+				float sx = transform.scale.x();
+				float sy = transform.scale.y();
+				float sz = transform.scale.z();
+
+				for (int i = 0; i < render.mesh->indices.size(); i+=3) {
+					btVector3 v1 = btVector3(sx*vertices[i].x, sy*vertices[i].y, sz*vertices[i].z);
+					btVector3 v2 = btVector3(sx*vertices[i+1].x, sy*vertices[i+1].y, sz*vertices[i+1].z);
+					btVector3 v3 = btVector3(sx*vertices[i+2].x, sy*vertices[i+2].y, sz*vertices[i+2].z);
+					tMesh->addTriangle(v1, v2, v3);
+				}
+				collisionShape = new btBvhTriangleMeshShape(tMesh, true);
+			}/*
+			else {
+				std::vector<glm::vec3>& vertices = render.mesh->vertices;
+				btConvexHullShape meshShape = btConvexHullShape();
+				for (auto i = 0; i < vertices.size(); i++)
+					meshShape.addPoint(btVector3(vertices[i].x, vertices[i].y, vertices[i].z));
+				collisionShape = new btConvexHullShape(meshShape);
+			}*/
 
             btRigidBody::btRigidBodyConstructionInfo bodyCI(physics.mass, transform.motionState, collisionShape);
             //bodyCI.m_restitution = btScalar(0.2f);

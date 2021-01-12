@@ -3,7 +3,7 @@
 
 #include "component.h"
 
-enum CollisionShape {Sphere, Box};
+enum CollisionShape {Sphere, Box, tMesh/*, Convex*/};
 
 struct MaterialProperties
 {

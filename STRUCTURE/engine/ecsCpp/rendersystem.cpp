@@ -8,7 +8,7 @@ renderSystem::renderSystem()
 	ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 500.0f);
 }
 
-bool renderSystem::initialize()
+bool renderSystem::initialize(std::unordered_map<std::string, Mesh*>& meshes)
 {
 	if (!Init())
 		return false;
@@ -16,8 +16,17 @@ bool renderSystem::initialize()
 	ParamAndID("../NormalMapping.vertexshader", "../NormalMapping.fragmentshader");
 	OBJReader("../objects/sphere/", "sphere");
 	VBOLoader("sphere");
+	meshes.insert(std::make_pair("sphere", &objects.at("sphere").mesh));
 	OBJReader("../objects/cube/", "cube");
 	VBOLoader("cube");
+	meshes.insert(std::make_pair("cube", &objects.at("cube").mesh));
+	OBJReader("../objects/suzanne/", "suzanne");
+	VBOLoader("suzanne");
+	meshes.insert(std::make_pair("suzanne", &objects.at("suzanne").mesh));
+
+	/*for (auto pair : objects) {
+		meshes.insert(std::make_pair(pair.first, &pair.second.mesh));
+	}*/
 
 	return true;
 }
