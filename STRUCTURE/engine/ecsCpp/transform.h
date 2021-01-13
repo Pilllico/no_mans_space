@@ -18,6 +18,8 @@ public:
     static bitmap componentSignature;
     MotionState* motionState = nullptr;
 
+	btMatrix3x3 Transform::getRotation() const;
+
 	btVector3 position;
 	btVector3 rotation;
 	btVector3 scale;

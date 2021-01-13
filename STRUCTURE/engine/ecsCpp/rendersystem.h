@@ -1,8 +1,6 @@
 #ifndef RENDERSYSTEM_H
 #define RENDERSYSTEM_H
 
-#include "system.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -26,6 +24,9 @@ using namespace glm;
 #include <common/vboindexer.hpp>
 #include <common/tangentspace.hpp>
 
+#include "system.h"
+#include "physicssystem.h"
+
 using namespace std;
 
 struct Textures {
@@ -41,21 +42,6 @@ struct Buffers {
 	GLuint tangentbuffer;
 	GLuint bitangentbuffer;
 	GLuint elementbuffer;
-};
-
-struct Mesh {
-	vector<vec3> vertices;
-	vector<vec2> uvs;
-	vector<vec3> normals;
-	vector<vec3> tangents;
-	vector<vec3> bitangents;
-
-	vector<unsigned short> indices;
-	vector<vec3> indexed_vertices;
-	vector<vec2> indexed_uvs;
-	vector<vec3> indexed_normals;
-	vector<vec3> indexed_tangents;
-	vector<vec3> indexed_bitangents;
 };
 
 struct Object {
@@ -83,11 +69,11 @@ class renderSystem : public System
 {
 public:
     renderSystem();
-	bool initialize();
+	bool initialize(std::unordered_map<std::string, Mesh*>& meshes);
     bool virtual execute();
+	void setViewMatrix(glm::mat4 ViewMatrix);
 	void Clean();
 	GLuint getProgramID();
-	//GLFWwindow* window;
     ~renderSystem();
 private:
 	bool Init();
@@ -104,6 +90,8 @@ private:
 	std::unordered_map<string, Object> objects;
 	vec3 lightPos;
 	GLuint VertexArrayID;
+	glm::mat4 ProjectionMatrix;
+	glm::mat4 ViewMatrix;
 };
 
 #endif // RENDERSYSTEM_H

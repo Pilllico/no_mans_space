@@ -30,6 +30,13 @@ bitmap Transform::getBitMap() const
     return componentSignature;
 }
 
+btMatrix3x3 Transform::getRotation() const
+{
+	btMatrix3x3 mat;
+	mat.setEulerZYX(rotation.getZ(), rotation.getY(), rotation.getX());
+	return mat;
+}
+
 Transform::~Transform()
 {
     if (motionState != nullptr)
