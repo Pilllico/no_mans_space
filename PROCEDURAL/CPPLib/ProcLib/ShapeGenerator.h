@@ -40,7 +40,7 @@ public:
         if (PlanetSettings::BASE_LAYER.ACTIVE) altitude = getAltitudeFromNoiseLayer(PlanetSettings::BASE_LAYER, pointOnUnitSphere);
         //DETAIL LAYERS
         if (!PlanetSettings::ADDITIONAL_LAYERS.empty()) {
-            for (int i = 0; i <= PlanetSettings::ADDITIONAL_LAYERS.size(); i++) {
+            for (int i = 0; i < PlanetSettings::ADDITIONAL_LAYERS.size(); i++) {
                 SurfaceNoiseSettings layer = PlanetSettings::ADDITIONAL_LAYERS[i];
                 if (altitude > 0 && layer.ACTIVE) altitude += getAltitudeFromNoiseLayer(layer, pointOnUnitSphere);
             }

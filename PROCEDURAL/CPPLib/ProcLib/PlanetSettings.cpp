@@ -6,4 +6,4 @@ float PlanetSettings::RADIUS_MULTIPLIER = 0.2;
 float PlanetSettings::SPEED_MULTIPLIER = 1.0;
 //SURFACE
 SurfaceNoiseSettings PlanetSettings::BASE_LAYER = SurfaceNoiseSettings();
-std::vector<SurfaceNoiseSettings> PlanetSettings::ADDITIONAL_LAYERS = std::vector<SurfaceNoiseSettings>(0);
+std::vector<SurfaceNoiseSettings> PlanetSettings::ADDITIONAL_LAYERS = std::vector<SurfaceNoiseSettings>(1);
