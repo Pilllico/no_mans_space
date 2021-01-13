@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	// Initial vertical angle : none
 	float verticalAngle = 0.0f;
 	
-	float burstStrength = 0.3f;
+	float burstStrength = 0.2f;
 	float mouseSpeed = 0.005f;
 
 	double lastTime = glfwGetTime();
@@ -83,11 +83,11 @@ int main(int argc, char *argv[])
 		glfwGetCursorPos(window, &xpos, &ypos);
 
 		// Reset mouse position for next frame
-		glfwSetCursorPos(window, 1024 / 2, 768 / 2);
+		glfwSetCursorPos(window, 1280 / 2, 720 / 2);
 
 		// Compute new orientation
-		horizontalAngle += mouseSpeed * float(1024 / 2 - xpos);
-		verticalAngle += mouseSpeed * float(768 / 2 - ypos);
+		horizontalAngle += mouseSpeed * float(1280 / 2 - xpos);
+		verticalAngle += mouseSpeed * float(720 / 2 - ypos);
 
 		// Direction : Spherical coordinates to Cartesian coordinates conversion
 		glm::vec3 direction(

@@ -5,7 +5,7 @@ extern GLFWwindow* window;
 renderSystem::renderSystem()
 {
 	systemSignature = bitmap("00000011");
-	ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 500.0f);
+	ProjectionMatrix = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 500.0f);
 }
 
 bool renderSystem::initialize(std::unordered_map<std::string, Mesh*>& meshes)
@@ -23,6 +23,10 @@ bool renderSystem::initialize(std::unordered_map<std::string, Mesh*>& meshes)
 	OBJReader("../objects/suzanne/", "suzanne");
 	VBOLoader("suzanne");
 	meshes.insert(std::make_pair("suzanne", &objects.at("suzanne").mesh));
+
+	OBJReader("../objects/test/", "test");
+	VBOLoader("test");
+	meshes.insert(std::make_pair("test", &objects.at("test").mesh));
 
 	/*for (auto pair : objects) {
 		meshes.insert(std::make_pair(pair.first, &pair.second.mesh));
@@ -58,7 +62,7 @@ bool renderSystem::InitGLFW()
 bool renderSystem::InitWindow()
 {
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(1024, 768, "Game Engine", NULL, NULL);
+	window = glfwCreateWindow(1280, 720, "Game Engine", NULL, NULL);
 	if (window == NULL) {
 		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		glfwTerminate();
@@ -91,7 +95,7 @@ void renderSystem::ParamAndID(string vertexShader, string fragmentShader)
 
 	// Set the mouse at the center of the screen
 	glfwPollEvents();
-	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
+	glfwSetCursorPos(window, 1280 / 2, 720 / 2);
 
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
