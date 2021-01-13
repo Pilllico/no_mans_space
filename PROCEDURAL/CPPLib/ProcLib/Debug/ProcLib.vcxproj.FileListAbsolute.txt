@@ -1,2 +1,4 @@
 C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Debug\ProcLib.exe
 C:\Users\Az\Desktop\Moteur\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Debug\ProcLib.pdb
+C:\Users\dougl\Desktop\Git_Server\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Debug\ProcLib.exe
+C:\Users\dougl\Desktop\Git_Server\no_mans_space\PROCEDURAL\CPPLib\ProcLib\Debug\ProcLib.pdb

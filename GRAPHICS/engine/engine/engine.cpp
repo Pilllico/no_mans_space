@@ -5,6 +5,6 @@
 
 int main(void)
 {
-	string path = "objects/cylinder/";
+	string path = "objects/gold_planet/";
 	return process(path);
 }

@@ -27,6 +27,7 @@ using namespace glm;
 #include <common/objloader.hpp>
 #include <common/vboindexer.hpp>
 #include <common/tangentspace.hpp>
+#include <common/PlanetMaker.h>
 
 using namespace std;
 
@@ -92,7 +93,7 @@ bool InitGLFW() {
 
 bool InitWindow() {
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(1024, 768, "Normal Mapping", NULL, NULL);
+	window = glfwCreateWindow(1024, 768, "Graphics test", NULL, NULL);
 	if (window == NULL) {
 		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		glfwTerminate();
@@ -158,6 +159,31 @@ void ParamAndID() {
 	SpecularTextureID = glGetUniformLocation(programID, "SpecularTextureSampler");
 }
 
+glm::vec3 transform(Vector3 vec) {
+	glm::vec3 temp = glm::vec3();
+	temp.x = vec.x; temp.y = vec.y; temp.z = vec.z;
+	return temp;
+}
+
+void loadPlanet(PlanetMaker pm) {
+
+	for (int i = 0; i < 6; ++i) {
+		Mesh mesh = pm.getPlanetFace(i).getMesh();
+
+		for (int j = 0; j < mesh.triangles.size(); j += 3) {
+			for (int k = 0; k < 3; k++) {
+
+				int t = mesh.triangles.at(j + k);
+
+				vertices.push_back(transform(mesh.vertices.at(t)));
+				normals.push_back(transform(mesh.normals.at(t)));
+				uvs.push_back(glm::vec2(0.0f));
+
+			}
+		}
+	}
+}
+
 void OBJReader(string path) {
 
 	// Load the texture
@@ -167,6 +193,10 @@ void OBJReader(string path) {
 
 	// Read our .obj file
 	loadOBJ(string(path + "object.obj").c_str(), vertices, uvs, normals);
+	
+	// Generate planet
+	PlanetMaker pm = PlanetMaker(Vector3::zero, 10);
+	//loadPlanet(pm);
 
 	computeTangentBasis(
 		vertices, uvs, normals, // input
