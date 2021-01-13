@@ -1,7 +1,7 @@
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
 
-/build
+build
 
 *~
 *.autosave
@@ -9,7 +9,6 @@
 *.core
 *.moc
 *.o
-*.obj
 *.orig
 *.rej
 *.so

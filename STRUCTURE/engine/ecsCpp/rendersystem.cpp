@@ -5,9 +5,10 @@ extern GLFWwindow* window;
 renderSystem::renderSystem()
 {
 	systemSignature = bitmap("00000011");
+	ProjectionMatrix = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 500.0f);
 }
 
-bool renderSystem::initialize()
+bool renderSystem::initialize(std::unordered_map<std::string, Mesh*>& meshes)
 {
 	if (!Init())
 		return false;
@@ -15,8 +16,21 @@ bool renderSystem::initialize()
 	ParamAndID("../NormalMapping.vertexshader", "../NormalMapping.fragmentshader");
 	OBJReader("../objects/sphere/", "sphere");
 	VBOLoader("sphere");
+	meshes.insert(std::make_pair("sphere", &objects.at("sphere").mesh));
 	OBJReader("../objects/cube/", "cube");
 	VBOLoader("cube");
+	meshes.insert(std::make_pair("cube", &objects.at("cube").mesh));
+	OBJReader("../objects/suzanne/", "suzanne");
+	VBOLoader("suzanne");
+	meshes.insert(std::make_pair("suzanne", &objects.at("suzanne").mesh));
+
+	OBJReader("../objects/test/", "test");
+	VBOLoader("test");
+	meshes.insert(std::make_pair("test", &objects.at("test").mesh));
+
+	/*for (auto pair : objects) {
+		meshes.insert(std::make_pair(pair.first, &pair.second.mesh));
+	}*/
 
 	return true;
 }
@@ -48,7 +62,7 @@ bool renderSystem::InitGLFW()
 bool renderSystem::InitWindow()
 {
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(1024, 768, "Game Engine", NULL, NULL);
+	window = glfwCreateWindow(1280, 720, "Game Engine", NULL, NULL);
 	if (window == NULL) {
 		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		glfwTerminate();
@@ -81,7 +95,7 @@ void renderSystem::ParamAndID(string vertexShader, string fragmentShader)
 
 	// Set the mouse at the center of the screen
 	glfwPollEvents();
-	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
+	glfwSetCursorPos(window, 1280 / 2, 720 / 2);
 
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -94,7 +108,6 @@ void renderSystem::ParamAndID(string vertexShader, string fragmentShader)
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
 
-	// ??????
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
@@ -193,11 +206,14 @@ void renderSystem::VBOLoader(string name)
 void renderSystem::ComputeAndShare(GLuint programID, const Transform& transform)
 {
 	// Compute the MVP matrix from keyboard and mouse input
-	computeMatricesFromInputs(/*window*/);
-	glm::mat4 ProjectionMatrix = getProjectionMatrix();
-	glm::mat4 ViewMatrix = getViewMatrix();
+	computeMatricesFromInputs();
+	//glm::mat4 ProjectionMatrix = getProjectionMatrix();
+	//glm::mat4 ViewMatrix = getViewMatrix();
+
 	glm::mat4 ModelMatrix = glm::mat4(1.0);
 	ModelMatrix = glm::translate(ModelMatrix, glm::vec3(transform.position.getX(), transform.position.getY(), transform.position.getZ()));
+
+	// Faux, à corriger avec les angles d'euler, pas les bon angles actuellement
 	ModelMatrix = glm::rotate(ModelMatrix, transform.rotation.getX(), glm::vec3(1.0f, 0.0f, 0.0f));
 	ModelMatrix = glm::rotate(ModelMatrix, transform.rotation.getY(), glm::vec3(0.0f, 1.0f, 0.0f));
 	ModelMatrix = glm::rotate(ModelMatrix, transform.rotation.getZ(), glm::vec3(0.0f, 0.0f, 1.0f));
@@ -376,7 +392,7 @@ bool renderSystem::execute()
 
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	for (Entity e : entityList)
 	{
 		const Render& render = renders.at(e);
@@ -388,7 +404,7 @@ bool renderSystem::execute()
 
 		ComputeAndShare(programID, transforms.at(e));
 
-		lightPos = vec3(0, 0, 4);
+		lightPos = vec3(0, 0, 50);
 		glUniform3f(shaderData.at(programID).LightID, lightPos.x, lightPos.y, lightPos.z);
 
 		Binding(programID, render.object_name);
@@ -400,6 +416,11 @@ bool renderSystem::execute()
 	glfwPollEvents();
 
 	return true;
+}
+
+void renderSystem::setViewMatrix(glm::mat4 ViewMatrix)
+{
+	this->ViewMatrix = ViewMatrix;
 }
 
 bool renderSystem::Init()
